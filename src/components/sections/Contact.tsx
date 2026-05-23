@@ -174,7 +174,7 @@ export default function Contact() {
             </div>
 
             {/* Social */}
-            <motion.div variants={fadeUpItem} className="pt-8 border-t border-white/5">
+            <motion.div variants={fadeUpItem} className="pt-8 border-t border-border">
               <h3 className="text-cream font-display text-lg font-semibold mb-4">Follow Us</h3>
               <div className="flex gap-3">
                 {[MessageCircle, Camera, Globe].map((Icon, i) => (
@@ -183,7 +183,7 @@ export default function Contact() {
                     href="#"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-12 h-12 rounded-full bg-white/5 hover:bg-gold/20 border border-white/10 hover:border-gold/30 flex items-center justify-center text-cream/60 hover:text-gold transition-all duration-300 group"
+                    className="w-12 h-12 rounded-full bg-muted/50 hover:bg-gold/20 border border-border hover:border-gold/30 flex items-center justify-center text-cream/60 hover:text-gold transition-all duration-300 group"
                   >
                     <Icon className="w-5 h-5 transition-transform group-hover:scale-110" />
                   </motion.a>
@@ -206,7 +206,7 @@ export default function Contact() {
               
               <form
                 onSubmit={handleSubmit}
-                className="space-y-6 bg-dark-900/60 backdrop-blur-sm border border-white/5 rounded-2xl p-4 sm:p-6 md:p-8 relative"
+                className="space-y-6 bg-dark-900/60 backdrop-blur-sm border border-border rounded-2xl p-4 sm:p-6 md:p-8 relative"
               >
                 {/* Success message */}
                 {submitted && (
@@ -231,7 +231,7 @@ export default function Contact() {
                       value={formData.firstName}
                       onChange={(e) => handleChange("firstName", e.target.value)}
                       className={cn(
-                        "bg-white/5 border-white/10 text-cream placeholder:text-cream/30 focus:border-gold/50 focus:ring-gold/20 transition-all duration-300",
+                        "text-cream focus:border-gold/50 focus:ring-gold/20 transition-all duration-300",
                         errors.firstName && "border-red-500/50 focus:border-red-500 focus:ring-red-500/20"
                       )}
                     />
@@ -252,7 +252,7 @@ export default function Contact() {
                       value={formData.lastName}
                       onChange={(e) => handleChange("lastName", e.target.value)}
                       className={cn(
-                        "bg-white/5 border-white/10 text-cream placeholder:text-cream/30 focus:border-gold/50 focus:ring-gold/20 transition-all duration-300",
+                        "text-cream focus:border-gold/50 focus:ring-gold/20 transition-all duration-300",
                         errors.lastName && "border-red-500/50 focus:border-red-500 focus:ring-red-500/20"
                       )}
                     />
@@ -275,7 +275,7 @@ export default function Contact() {
                     value={formData.email}
                     onChange={(e) => handleChange("email", e.target.value)}
                     className={cn(
-                      "bg-white/5 border-white/10 text-cream placeholder:text-cream/30 focus:border-gold/50 focus:ring-gold/20 transition-all duration-300",
+                      "text-cream focus:border-gold/50 focus:ring-gold/20 transition-all duration-300",
                       errors.email && "border-red-500/50 focus:border-red-500 focus:ring-red-500/20"
                     )}
                   />
@@ -296,7 +296,7 @@ export default function Contact() {
                     placeholder="(555) 000-0000"
                     value={formData.phone}
                     onChange={(e) => handleChange("phone", e.target.value)}
-                    className="bg-white/5 border-white/10 text-cream placeholder:text-cream/30 focus:border-gold/50 focus:ring-gold/20 transition-all duration-300"
+                    className="text-cream focus:border-gold/50 focus:ring-gold/20 transition-all duration-300"
                   />
                 </div>
                 <div className="space-y-2">
@@ -306,7 +306,7 @@ export default function Contact() {
                     value={formData.message}
                     onChange={(e) => handleChange("message", e.target.value)}
                     className={cn(
-                      "bg-white/5 border-white/10 text-cream placeholder:text-cream/30 focus:border-gold/50 focus:ring-gold/20 min-h-[120px] transition-all duration-300",
+                      "text-cream focus:border-gold/50 focus:ring-gold/20 min-h-[120px] transition-all duration-300",
                       errors.message && "border-red-500/50 focus:border-red-500 focus:ring-red-500/20"
                     )}
                   />
