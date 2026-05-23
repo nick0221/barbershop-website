@@ -18,9 +18,9 @@ A modern, responsive barbershop website built with **Next.js 16**, **Tailwind CS
 
 > ⚠️ **Demo Site** — This website is for demonstration purposes only and is not a real barbershop. The booking wizard and contact form simulate real functionality — no data is stored or sent to a real barbershop.
 
-## ✨ Features
+## ✨Features
 
-### 🎨 Design & UI
+### 🎨Design & UI
 
 - **Dark & Light Mode** — Smooth theme switching with warm cream light mode and premium dark mode
 - **Custom Gold Accents** — Consistent brand identity with gold (#C8A87C) gradients and accents
@@ -29,7 +29,7 @@ A modern, responsive barbershop website built with **Next.js 16**, **Tailwind CS
 - **Back to Top** — Floating button appears on scroll for easy navigation
 - **Noise Texture Overlay** — Subtle grain texture for depth and richness
 
-### 🧭 Sections
+### 🧭Sections
 
 | Section          | Description                                                                           |
 | ---------------- | ------------------------------------------------------------------------------------- |
@@ -43,7 +43,7 @@ A modern, responsive barbershop website built with **Next.js 16**, **Tailwind CS
 | **Booking**      | 5-step booking wizard (Service → Barber → Date/Time → Info → Confirm)                 |
 | **Contact**      | Contact form with validation, social links, address, business hours and info          |
 
-### ♿ Accessibility
+### ♿Accessibility
 
 - ARIA roles (`tablist`, `tab`, `tabpanel`) on filter controls
 - Keyboard navigation (Arrow keys for tabs, Escape for modals)
@@ -51,7 +51,7 @@ A modern, responsive barbershop website built with **Next.js 16**, **Tailwind CS
 - Focus-visible ring styling
 - Semantic HTML with proper heading hierarchy
 
-### ⚡ Performance & SEO
+### ⚡Performance & SEO
 
 - **Optimized for performance** — Lazy loading, optimized images, minimal JavaScript footprint
 - **Next.js App Router** — Static generation, route-level code splitting
@@ -62,7 +62,7 @@ A modern, responsive barbershop website built with **Next.js 16**, **Tailwind CS
 - **Lazy Image Loading** — Native `loading="lazy"` with CSS blur-up fade-in placeholders
 - **Custom SVG Favicon** — Brand-matched scissors icon
 
-## 🛠️ Tech Stack
+## 🛠️Tech Stack
 
 | Technology           | Purpose                               |
 | -------------------- | ------------------------------------- |
@@ -109,7 +109,7 @@ npm run build
 npm start
 ```
 
-## 📁 Project Structure
+## 📁Project Structure
 
 ```
 barbershop-website/
@@ -144,7 +144,7 @@ barbershop-website/
 └── package.json
 ```
 
-## 🔧 Configuration
+## 🔧Configuration
 
 ### Theme
 
