@@ -231,8 +231,8 @@ export default function Contact() {
                       value={formData.firstName}
                       onChange={(e) => handleChange("firstName", e.target.value)}
                       className={cn(
-                        "text-cream focus:border-gold/50 focus:ring-gold/20 transition-all duration-300",
-                        errors.firstName && "border-red-500/50 focus:border-red-500 focus:ring-red-500/20"
+                        "text-cream dark:bg-white/5 dark:border-white/10 dark:placeholder:text-cream/30 focus:border-gold/50 focus:ring-gold/20 transition-all duration-300",
+                        errors.firstName && "dark:border-red-500/50 border-red-500/50 focus:border-red-500 focus:ring-red-500/20"
                       )}
                     />
                     {errors.firstName && (
@@ -252,8 +252,8 @@ export default function Contact() {
                       value={formData.lastName}
                       onChange={(e) => handleChange("lastName", e.target.value)}
                       className={cn(
-                        "text-cream focus:border-gold/50 focus:ring-gold/20 transition-all duration-300",
-                        errors.lastName && "border-red-500/50 focus:border-red-500 focus:ring-red-500/20"
+                        "text-cream dark:bg-white/5 dark:border-white/10 dark:placeholder:text-cream/30 focus:border-gold/50 focus:ring-gold/20 transition-all duration-300",
+                        errors.lastName && "dark:border-red-500/50 border-red-500/50 focus:border-red-500 focus:ring-red-500/20"
                       )}
                     />
                     {errors.lastName && (
@@ -275,8 +275,8 @@ export default function Contact() {
                     value={formData.email}
                     onChange={(e) => handleChange("email", e.target.value)}
                     className={cn(
-                      "text-cream focus:border-gold/50 focus:ring-gold/20 transition-all duration-300",
-                      errors.email && "border-red-500/50 focus:border-red-500 focus:ring-red-500/20"
+                      "text-cream dark:bg-white/5 dark:border-white/10 dark:placeholder:text-cream/30 focus:border-gold/50 focus:ring-gold/20 transition-all duration-300",
+                      errors.email && "dark:border-red-500/50 border-red-500/50 focus:border-red-500 focus:ring-red-500/20"
                     )}
                   />
                   {errors.email && (
@@ -296,7 +296,7 @@ export default function Contact() {
                     placeholder="(555) 000-0000"
                     value={formData.phone}
                     onChange={(e) => handleChange("phone", e.target.value)}
-                    className="text-cream focus:border-gold/50 focus:ring-gold/20 transition-all duration-300"
+                    className="text-cream dark:bg-white/5 dark:border-white/10 dark:placeholder:text-cream/30 focus:border-gold/50 focus:ring-gold/20 transition-all duration-300"
                   />
                 </div>
                 <div className="space-y-2">
@@ -306,8 +306,8 @@ export default function Contact() {
                     value={formData.message}
                     onChange={(e) => handleChange("message", e.target.value)}
                     className={cn(
-                      "text-cream focus:border-gold/50 focus:ring-gold/20 min-h-[120px] transition-all duration-300",
-                      errors.message && "border-red-500/50 focus:border-red-500 focus:ring-red-500/20"
+                      "text-cream dark:bg-white/5 dark:border-white/10 dark:placeholder:text-cream/30 focus:border-gold/50 focus:ring-gold/20 min-h-[120px] transition-all duration-300",
+                      errors.message && "dark:border-red-500/50 border-red-500/50 focus:border-red-500 focus:ring-red-500/20"
                     )}
                   />
                   {errors.message && (
