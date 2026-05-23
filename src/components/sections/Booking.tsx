@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const services = [
   { id: "classic-cut", name: "Classic Haircut", price: "$45", duration: "45 min", icon: Scissors },
@@ -163,6 +164,7 @@ export default function Booking() {
   };
 
   const progressPercent = (stepNumbers[step] / 5) * 100;
+  const reducedMotion = useReducedMotion();
 
   if (confirmed) {
     return (
@@ -247,19 +249,30 @@ export default function Booking() {
       {/* Radial glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold/10 rounded-full blur-[150px]" />
 
-      {/* Decorative rotating rings */}
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-        className="absolute top-10 right-10 w-40 h-40 border border-gold/10 rounded-full"
-      >
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 border border-gold/8 rounded-full" />
-      </motion.div>
-      <motion.div
-        animate={{ rotate: -360 }}
-        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-        className="absolute bottom-10 left-10 w-28 h-28 border border-gold/10 rounded-full"
-      />
+      {/* Decorative rotating rings — static when reduced motion */}
+      {reducedMotion ? (
+        <>
+          <div className="absolute top-10 right-10 w-40 h-40 border border-gold/10 rounded-full">
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 border border-gold/8 rounded-full" />
+          </div>
+          <div className="absolute bottom-10 left-10 w-28 h-28 border border-gold/10 rounded-full" />
+        </>
+      ) : (
+        <>
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+            className="absolute top-10 right-10 w-40 h-40 border border-gold/10 rounded-full"
+          >
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-32 h-32 border border-gold/8 rounded-full" />
+          </motion.div>
+          <motion.div
+            animate={{ rotate: -360 }}
+            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+            className="absolute bottom-10 left-10 w-28 h-28 border border-gold/10 rounded-full"
+          />
+        </>
+      )}
 
       <div className="max-w-2xl mx-auto px-4 relative z-10">
         {/* Header */}

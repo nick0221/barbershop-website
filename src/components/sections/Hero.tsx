@@ -4,14 +4,15 @@ import { motion } from "framer-motion";
 import { Scissors, ArrowRight, Sparkles, Star, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import AnimatedCounter from "@/components/AnimatedCounter";
+import { useReducedMotion } from "@/hooks/useReducedMotion";
 
 const floatingIcons = [
-  { Icon: Scissors, x: "15%", y: "20%", delay: 0, duration: 3, size: "w-8 h-8 md:w-12 md:h-12" },
-  { Icon: Sparkles, x: "80%", y: "25%", delay: 1, duration: 4, size: "w-6 h-6 md:w-10 md:h-10" },
-  { Icon: Scissors, x: "70%", y: "72%", delay: 0.5, duration: 3.5, size: "w-10 h-10 md:w-14 md:h-14" },
-  { Icon: Sparkles, x: "20%", y: "78%", delay: 1.5, duration: 3, size: "w-6 h-6 md:w-8 md:h-8" },
-  { Icon: Star, x: "90%", y: "55%", delay: 2, duration: 5, size: "w-4 h-4 md:w-6 md:h-6" },
-  { Icon: Star, x: "10%", y: "45%", delay: 0.8, duration: 4.5, size: "w-4 h-4 md:w-6 md:h-6" },
+  { Icon: Scissors, x: "15%", y: "20%", delay: 0, duration: 3, size: "w-8 h-8 md:w-12 md:h-12", mobileOnly: false },
+  { Icon: Sparkles, x: "80%", y: "25%", delay: 1, duration: 4, size: "w-6 h-6 md:w-10 md:h-10", mobileOnly: false },
+  { Icon: Scissors, x: "70%", y: "72%", delay: 0.5, duration: 3.5, size: "w-10 h-10 md:w-14 md:h-14", mobileOnly: true },
+  { Icon: Sparkles, x: "20%", y: "78%", delay: 1.5, duration: 3, size: "w-6 h-6 md:w-8 md:h-8", mobileOnly: true },
+  { Icon: Star, x: "90%", y: "55%", delay: 2, duration: 5, size: "w-4 h-4 md:w-6 md:h-6", mobileOnly: true },
+  { Icon: Star, x: "10%", y: "45%", delay: 0.8, duration: 4.5, size: "w-4 h-4 md:w-6 md:h-6", mobileOnly: true },
 ];
 
 const staggerContainer = {
@@ -34,10 +35,24 @@ const fadeUpItem = {
   },
 };
 
+// Static variants for reduced motion — still fade in but no movement
+const fadeInOnly = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { duration: 0.5 },
+  },
+};
+
 export default function Hero() {
+  const reducedMotion = useReducedMotion();
+  const motionVariant = reducedMotion ? fadeInOnly : fadeUpItem;
   const scrollTo = (id: string) => {
     const el = document.querySelector(id);
-    if (el) el.scrollIntoView({ behavior: "smooth" });
+    if (el) {
+      const y = el.getBoundingClientRect().top + window.scrollY - 80;
+      window.scrollTo({ top: y, behavior: "smooth" });
+    }
   };
 
   return (
@@ -62,39 +77,75 @@ export default function Hero() {
       <div className="absolute inset-0 bg-gradient-to-b from-dark-950/40 via-transparent to-dark-950/90" />
       <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-dark-950/60 to-transparent" />
 
-      {/* Decorative rotating rings */}
-      <motion.div
-        animate={{ rotate: 360 }}
-        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-        className="absolute top-1/4 -right-20 w-64 h-64 border border-gold/10 rounded-full"
-      />
-      <motion.div
-        animate={{ rotate: -360 }}
-        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-        className="absolute bottom-1/4 -left-20 w-48 h-48 border border-gold/8 rounded-full"
-      />
+      {/* Decorative rotating rings — static when reduced motion */}
+      {reducedMotion ? (
+        <>
+          <div className="absolute top-1/4 -right-20 w-64 h-64 border border-gold/10 rounded-full" />
+          <div className="absolute bottom-1/4 -left-20 w-48 h-48 border border-gold/8 rounded-full" />
+        </>
+      ) : (
+        <>
+          <motion.div
+            animate={{ rotate: 360 }}
+            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+            className="absolute top-1/4 -right-20 w-64 h-64 border border-gold/10 rounded-full"
+          />
+          <motion.div
+            animate={{ rotate: -360 }}
+            transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+            className="absolute bottom-1/4 -left-20 w-48 h-48 border border-gold/8 rounded-full"
+          />
+        </>
+      )}
 
-      {/* Floating icons */}
-      {floatingIcons.map((item, i) => (
-        <motion.div
-          key={i}
-          className={`absolute text-gold/12 ${item.size}`}
-          style={{ left: item.x, top: item.y }}
-          animate={{
-            y: [0, -15, 0],
-            rotate: [0, 8, -8, 0],
-            opacity: [0.08, 0.15, 0.08],
-          }}
-          transition={{
-            duration: item.duration,
-            repeat: Infinity,
-            delay: item.delay,
-            ease: "easeInOut",
-          }}
-        >
-          <item.Icon className="w-full h-full" />
-        </motion.div>
-      ))}
+      {/* Floating icons — reduced on mobile, static when reduced motion */}
+      {floatingIcons
+        .filter((item) => !item.mobileOnly)
+        .map((item, i) => (
+          reducedMotion ? (
+            <div
+              key={i}
+              className={`absolute text-gold/12 opacity-10 ${item.size}`}
+              style={{ left: item.x, top: item.y }}
+            >
+              <item.Icon className="w-full h-full" />
+            </div>
+          ) : (
+            <motion.div
+              key={i}
+              className={`absolute text-gold/12 ${item.size}`}
+              style={{ left: item.x, top: item.y }}
+              animate={{
+                y: [0, -15, 0],
+                rotate: [0, 8, -8, 0],
+                opacity: [0.08, 0.15, 0.08],
+              }}
+              transition={{
+                duration: item.duration,
+                repeat: Infinity,
+                delay: item.delay,
+                ease: "easeInOut",
+              }}
+            >
+              <item.Icon className="w-full h-full" />
+            </motion.div>
+          )
+        ))
+      /* Extra mobile-only icons shown only on desktop via CSS */
+      .map((item, i) => item) /* identity, already filtered above */
+      }
+      {/* Mobile-only icons (hidden on mobile via md:block) */}
+      {floatingIcons
+        .filter((item) => item.mobileOnly)
+        .map((item, i) => (
+          <div
+            key={`mobile-${i}`}
+            className={`absolute text-gold/12 opacity-10 hidden md:block ${item.size}`}
+            style={{ left: item.x, top: item.y }}
+          >
+            <item.Icon className="w-full h-full" />
+          </div>
+        ))}
 
       {/* Content */}
       <motion.div
@@ -199,7 +250,7 @@ export default function Hero() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.5, duration: 0.8 }}
+        transition={{ delay: 0.8, duration: 0.6 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
       >
         <motion.div
