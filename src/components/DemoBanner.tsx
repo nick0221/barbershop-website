@@ -31,8 +31,9 @@ export default function DemoBanner() {
 
   return (
     <div
+      data-banner
       className={cn(
-        "fixed top-0 left-0 right-0 z-[60] h-9",
+        "fixed top-0 left-0 right-0 z-[60] h-[var(--banner-height)]",
         "bg-gradient-to-r from-amber-950/90 via-dark-900/95 to-amber-950/90",
         "backdrop-blur-md border-b border-gold/20",
         "flex items-center justify-center px-4 sm:px-10"

@@ -140,13 +140,33 @@ export default function Services() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex justify-center mb-14"
         >
-          <div className="inline-flex items-center gap-0.5 bg-dark-900/60 border border-white/5 rounded-2xl p-1.5 overflow-x-auto w-full sm:w-auto snap-x snap-mandatory scrollbar-none [-webkit-scrollbar]:hidden">
+          <div
+            role="tablist"
+            aria-label="Service categories"
+            className="inline-flex items-center gap-0.5 bg-dark-900/60 border border-white/5 rounded-2xl p-1.5 overflow-x-auto w-full sm:w-auto snap-x snap-mandatory scrollbar-none [-webkit-scrollbar]:hidden"
+          >
             {categories.map((cat) => {
               const isActive = activeCategory === cat.value;
               return (
                 <button
                   key={cat.value}
+                  role="tab"
+                  aria-selected={isActive}
+                  aria-controls={`services-panel`}
                   onClick={() => setActiveCategory(cat.value)}
+                  onKeyDown={(e) => {
+                    const idx = categories.findIndex((c) => c.value === cat.value);
+                    let nextIdx: number | null = null;
+                    if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+                      nextIdx = (idx + 1) % categories.length;
+                    } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+                      nextIdx = (idx - 1 + categories.length) % categories.length;
+                    }
+                    if (nextIdx !== null) {
+                      e.preventDefault();
+                      setActiveCategory(categories[nextIdx].value);
+                    }
+                  }}
                   className={cn(
                     "relative flex items-center gap-2.5 px-5 py-2.5 text-sm font-medium rounded-xl transition-all duration-300 whitespace-nowrap snap-start",
                     isActive
@@ -186,6 +206,9 @@ export default function Services() {
         <AnimatePresence mode="wait">
           <motion.div
             key={activeCategory}
+            id="services-panel"
+            role="tabpanel"
+            aria-label={`${activeCategory === "all" ? "All" : activeCategory} services`}
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -236,7 +259,14 @@ export default function Services() {
                         className="text-cream/60 hover:text-gold hover:bg-gold/10 relative overflow-hidden group/btn"
                         onClick={() => {
                           const el = document.querySelector("#booking");
-                          if (el) el.scrollIntoView({ behavior: "smooth" });
+                          if (el) {
+                            const navbarHeight = 80;
+                            const bannerEl = document.querySelector('[data-banner]');
+                            const bannerHeight = bannerEl ? 36 : 0;
+                            const offset = navbarHeight + bannerHeight + 20;
+                            const y = el.getBoundingClientRect().top + window.scrollY - offset;
+                            window.scrollTo({ top: y, behavior: "smooth" });
+                          }
                         }}
                       >
                         <span className="relative z-10">Book Now</span>

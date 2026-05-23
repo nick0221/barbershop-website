@@ -72,12 +72,29 @@ export default function Gallery() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
+          role="tablist"
+          aria-label="Gallery filters"
           className="flex flex-wrap justify-center gap-3 mb-12"
         >
           {filters.map((filter) => (
             <button
               key={filter}
+              role="tab"
+              aria-selected={activeFilter === filter}
               onClick={() => setActiveFilter(filter)}
+              onKeyDown={(e) => {
+                const idx = filters.indexOf(filter);
+                let nextIdx: number | null = null;
+                if (e.key === "ArrowRight" || e.key === "ArrowDown") {
+                  nextIdx = (idx + 1) % filters.length;
+                } else if (e.key === "ArrowLeft" || e.key === "ArrowUp") {
+                  nextIdx = (idx - 1 + filters.length) % filters.length;
+                }
+                if (nextIdx !== null) {
+                  e.preventDefault();
+                  setActiveFilter(filters[nextIdx]);
+                }
+              }}
               className={cn(
                 "px-6 py-2 rounded-full text-sm font-medium transition-all duration-300",
                 activeFilter === filter

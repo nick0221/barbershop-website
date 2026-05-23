@@ -61,7 +61,12 @@ export default function Navbar() {
     setMobileOpen(false);
     const el = document.querySelector(href);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+      const navbarHeight = 80; // h-20
+      const bannerEl = document.querySelector('[data-banner]');
+      const bannerHeight = bannerEl ? 36 : 0;
+      const offset = navbarHeight + bannerHeight + 20; // +20px buffer
+      const y = el.getBoundingClientRect().top + window.scrollY - offset;
+      window.scrollTo({ top: y, behavior: "smooth" });
     }
   };
 
@@ -72,7 +77,7 @@ export default function Navbar() {
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
       className={cn(
         "fixed left-0 right-0 z-50 transition-all duration-500",
-        bannerVisible ? "top-9" : "top-0",
+        bannerVisible ? "top-[var(--banner-height)]" : "top-0",
         scrolled
           ? "bg-dark-950/90 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.3)] border-b border-white/10"
           : "bg-dark-950/60 backdrop-blur-sm border-b border-white/[0.03]"
