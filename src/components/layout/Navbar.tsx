@@ -63,8 +63,8 @@ export default function Navbar() {
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         scrolled
-          ? "bg-dark-950/90 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.3)] border-b border-white/5"
-          : "bg-transparent"
+          ? "bg-dark-950/90 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.3)] border-b border-white/10"
+          : "bg-dark-950/60 backdrop-blur-sm border-b border-white/[0.03]"
       )}
     >
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -148,13 +148,13 @@ export default function Navbar() {
             </SheetTrigger>
             <SheetContent
               side="right"
-              className="bg-dark-950 border-l border-white/5 w-[280px] sm:w-[350px]"
+              className="bg-dark-950 border-l w-[280px] sm:w-[350px]"
               showCloseButton={false}
             >
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
 
               {/* Logo inside sheet */}
-              <div className="flex items-center gap-3 px-4 pt-6 pb-6 border-b border-white/5">
+              <div className="flex items-center gap-3 px-4 pt-6 pb-6 border-b">
                 <Scissors className="w-5 h-5 text-gold" />
                 <span className="text-lg font-display font-bold tracking-wide">
                   <span className="text-cream">BLACK<span className="text-gold">STAG</span></span>
@@ -171,7 +171,7 @@ export default function Navbar() {
                       "block w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200",
                       activeSection === link.href
                         ? "text-gold bg-gold/10 border-l-2 border-gold"
-                        : "text-cream/70 hover:text-cream hover:bg-white/5 border-l-2 border-transparent"
+                        : "text-cream/70 hover:text-cream hover:bg-muted border-l-2 border-transparent"
                     )}
                   >
                     {link.label}
@@ -180,7 +180,7 @@ export default function Navbar() {
               </div>
 
               {/* Theme toggle + Booking */}
-              <div className="px-4 pb-6 pt-4 border-t border-white/5 space-y-3">
+              <div className="px-4 pb-6 pt-4 border-t space-y-3">
                 <div className="flex items-center justify-between px-2">
                   <span className="text-xs font-medium text-cream/50">Appearance</span>
                   <ThemeToggle />
