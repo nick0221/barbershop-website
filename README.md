@@ -6,17 +6,8 @@
   <p>
     <strong>Premium Grooming Experience — Where Style Meets Precision</strong>
   </p>
-  <p>
-    <a href="https://website-barbershop-two.vercel.app" target="_blank">🌐 Live Demo</a>
-    &nbsp;·&nbsp;
-    <a href="#features">Features</a>
-    &nbsp;·&nbsp;
-    <a href="#tech-stack">Tech Stack</a>
-    &nbsp;·&nbsp;
-    <a href="#getting-started">Getting Started</a>
-    &nbsp;·&nbsp;
-    <a href="#project-structure">Project Structure</a>
-  </p>
+
+  [🌐 Live Demo](https://website-barbershop-two.vercel.app) · [Features](#features) · [Tech Stack](#tech-stack) · [Getting Started](#getting-started) · [Project Structure](#project-structure)
   <br/>
 </div>
 
