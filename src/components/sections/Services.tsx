@@ -1,11 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Scissors, Zap, Sparkles, Baby, Eye, Crown, ScissorsLineDashed, SprayCan } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { cn } from "@/lib/utils";
 
 const services = [
@@ -91,6 +91,13 @@ const itemVariants = {
 };
 
 export default function Services() {
+  const [activeCategory, setActiveCategory] = useState("all");
+
+  const filteredServices =
+    activeCategory === "all"
+      ? services
+      : services.filter((s) => s.category === activeCategory);
+
   return (
     <section id="services" className="relative py-24 md:py-32 bg-dark-950">
       {/* Section divider */}
@@ -125,112 +132,123 @@ export default function Services() {
           </p>
         </motion.div>
 
-        {/* Tabs + Services Grid */}
-        <Tabs defaultValue="all" className="w-full">
-          {/* Category Tabs */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex justify-center mb-12"
-          >
-            <TabsList className="inline-flex bg-dark-900/80 border border-white/5 rounded-full p-1.5 gap-1 overflow-x-auto w-full sm:w-auto scrollbar-none [-webkit-scrollbar]:hidden snap-x snap-mandatory flex-nowrap">
-              {categories.map((cat) => (
-                <TabsTrigger
+        {/* Category Filter Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="flex justify-center mb-14"
+        >
+          <div className="inline-flex items-center gap-0.5 bg-dark-900/60 border border-white/5 rounded-2xl p-1.5 overflow-x-auto w-full sm:w-auto snap-x snap-mandatory scrollbar-none [-webkit-scrollbar]:hidden">
+            {categories.map((cat) => {
+              const isActive = activeCategory === cat.value;
+              return (
+                <button
                   key={cat.value}
-                  value={cat.value}
+                  onClick={() => setActiveCategory(cat.value)}
                   className={cn(
-                    "rounded-full px-5 py-2 text-sm font-medium transition-all duration-300",
-                    "text-cream/60 hover:text-cream hover:bg-white/5",
-                    "data-active:bg-gold data-active:text-dark-950 data-active:shadow-md data-active:shadow-gold/20"
+                    "relative flex items-center gap-2.5 px-5 py-2.5 text-sm font-medium rounded-xl transition-all duration-300 whitespace-nowrap snap-start",
+                    isActive
+                      ? "text-gold"
+                      : "text-cream/50 hover:text-cream/80"
                   )}
                 >
-                  <div className="flex items-center gap-2">
+                  {/* Active background pill */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="category-pill"
+                      className="absolute inset-0 bg-gold/10 border border-gold/25 rounded-xl shadow-lg shadow-gold/5"
+                      transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
+                    />
+                  )}
+                  
+                  {/* Active underline */}
+                  {isActive && (
+                    <motion.div
+                      layoutId="category-underline"
+                      className="absolute bottom-0 left-3 right-3 h-[2px] bg-gradient-to-r from-gold/80 to-gold/30 rounded-full"
+                      transition={{ type: "spring", bounce: 0.25, duration: 0.5 }}
+                    />
+                  )}
+
+                  <span className="relative z-10 flex items-center gap-2">
                     <cat.icon className="w-4 h-4" />
                     {cat.label}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+        </motion.div>
+
+        {/* Services Grid */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeCategory}
+            variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            exit={{ opacity: 0, y: -20, transition: { duration: 0.2 } }}
+            className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {filteredServices.map((service, i) => (
+              <motion.div key={service.title} variants={itemVariants}>
+                <Card className="group relative bg-dark-900/50 border-white/5 hover:border-gold/30 hover:bg-dark-900/80 h-full transition-all duration-500 overflow-hidden">
+                  {/* Hover glow */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-gold/10 rounded-full blur-[80px]" />
                   </div>
-                </TabsTrigger>
-              ))}
-            </TabsList>
+
+                  {/* Top decorative line */}
+                  <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
+                  {/* Popular badge */}
+                  {service.popular && (
+                    <div className="absolute top-4 right-4 z-10">
+                      <Badge variant="gold" className="animate-pulse-gold">Popular</Badge>
+                    </div>
+                  )}
+
+                  <CardHeader className="relative">
+                    <div className="w-14 h-14 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center mb-4 group-hover:bg-gold/20 group-hover:shadow-lg group-hover:shadow-gold/10 transition-all duration-300">
+                      <service.icon className="w-7 h-7 text-gold" />
+                    </div>
+                    <CardTitle className="text-cream group-hover:text-gold transition-colors duration-300 text-xl">
+                      {service.title}
+                    </CardTitle>
+                  </CardHeader>
+
+                  <CardContent className="relative space-y-4">
+                    <p className="text-cream/60 text-sm leading-relaxed">
+                      {service.description}
+                    </p>
+                    <div className="flex items-center justify-between pt-4 border-t border-white/5 group-hover:border-gold/10 transition-colors duration-500">
+                      <div>
+                        <span className="text-2xl font-display font-bold text-gold">
+                          {service.price}
+                        </span>
+                        <span className="text-cream/40 text-xs ml-2">{service.duration}</span>
+                      </div>
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        className="text-cream/60 hover:text-gold hover:bg-gold/10 relative overflow-hidden group/btn"
+                        onClick={() => {
+                          const el = document.querySelector("#booking");
+                          if (el) el.scrollIntoView({ behavior: "smooth" });
+                        }}
+                      >
+                        <span className="relative z-10">Book Now</span>
+                        <div className="absolute inset-0 bg-gradient-to-r from-gold/0 via-gold/10 to-gold/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700" />
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
           </motion.div>
-
-          {/* Tab Content Panels */}
-          {categories.map((cat) => {
-            const filteredServices =
-              cat.value === "all"
-                ? services
-                : services.filter((s) => s.category === cat.value);
-
-            return (
-              <TabsContent key={cat.value} value={cat.value} className="mt-0">
-                <motion.div
-                  variants={containerVariants}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: "-50px" }}
-                  className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
-                >
-                  {filteredServices.map((service, i) => (
-                    <motion.div key={service.title} variants={itemVariants}>
-                      <Card className="group relative bg-dark-900/50 border-white/5 hover:border-gold/30 hover:bg-dark-900/80 h-full transition-all duration-500 overflow-hidden">
-                        {/* Hover glow */}
-                        <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-gold/10 rounded-full blur-[80px]" />
-                        </div>
-
-                        {/* Top decorative line */}
-                        <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-
-                        {/* Popular badge */}
-                        {service.popular && (
-                          <div className="absolute top-4 right-4 z-10">
-                            <Badge variant="gold" className="animate-pulse-gold">Popular</Badge>
-                          </div>
-                        )}
-
-                        <CardHeader className="relative">
-                          <div className="w-14 h-14 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center mb-4 group-hover:bg-gold/20 group-hover:shadow-lg group-hover:shadow-gold/10 transition-all duration-300">
-                            <service.icon className="w-7 h-7 text-gold" />
-                          </div>
-                          <CardTitle className="text-cream group-hover:text-gold transition-colors duration-300 text-xl">
-                            {service.title}
-                          </CardTitle>
-                        </CardHeader>
-
-                        <CardContent className="relative space-y-4">
-                          <p className="text-cream/60 text-sm leading-relaxed">
-                            {service.description}
-                          </p>
-                          <div className="flex items-center justify-between pt-4 border-t border-white/5 group-hover:border-gold/10 transition-colors duration-500">
-                            <div>
-                              <span className="text-2xl font-display font-bold text-gold">
-                                {service.price}
-                              </span>
-                              <span className="text-cream/40 text-xs ml-2">{service.duration}</span>
-                            </div>
-                            <Button
-                              variant="ghost"
-                              size="sm"
-                              className="text-cream/60 hover:text-gold hover:bg-gold/10 relative overflow-hidden group/btn"
-                              onClick={() => {
-                                const el = document.querySelector("#booking");
-                                if (el) el.scrollIntoView({ behavior: "smooth" });
-                              }}
-                            >
-                              <span className="relative z-10">Book Now</span>
-                              <div className="absolute inset-0 bg-gradient-to-r from-gold/0 via-gold/10 to-gold/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700" />
-                            </Button>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </TabsContent>
-            );
-          })}
-        </Tabs>
+        </AnimatePresence>
       </div>
     </section>
   );
