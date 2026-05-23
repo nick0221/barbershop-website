@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Outfit, Playfair_Display, Geist } from "next/font/google";
+import { Outfit, Playfair_Display, Geist, Open_Sans } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { ThemeProvider } from "next-themes";
@@ -20,6 +20,13 @@ const playfair = Playfair_Display({
   subsets: ["latin"],
   variable: "--font-playfair",
   display: "swap",
+});
+
+const openSans = Open_Sans({
+  subsets: ["latin"],
+  variable: "--font-open-sans",
+  display: "swap",
+  axes: ["wdth"],
 });
 
 const siteUrl = "https://website-barbershop-two.vercel.app";
@@ -158,7 +165,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${outfit.variable} ${playfair.variable} antialiased bg-dark-950 text-cream selection:bg-gold/30 selection:text-cream`}
+        className={`${outfit.variable} ${playfair.variable} ${openSans.variable} antialiased bg-dark-950 text-cream selection:bg-gold/30 selection:text-cream`}
       >
         {/* Fixed UI overlays */}
         <ScrollProgress />
