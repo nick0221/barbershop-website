@@ -23,7 +23,7 @@ A modern, responsive barbershop website built with **Next.js 16**, **Tailwind CS
 - **Dark & Light Mode** — Smooth theme switching with warm cream light mode and premium dark mode
 - **Custom Gold Accents** — Consistent brand identity with gold (#C8A87C) gradients and accents
 - **Responsive Layout** — Fully adaptive from 320px mobile to 4K desktop
-- **Micro-interactions** — Hover glows, animated counters, scroll progress bar, and parallax effects
+- **Micro-interactions** — Hover glows, animated counters, scroll progress bar, and floating icon animations
 - **Back to Top** — Floating button appears on scroll for easy navigation
 - **Noise Texture Overlay** — Subtle grain texture for depth and richness
 
@@ -38,7 +38,7 @@ A modern, responsive barbershop website built with **Next.js 16**, **Tailwind CS
 | **Testimonials** | Auto-playing carousel with star ratings |
 | **FAQ** | Accordion-style Q&A with smooth expand/collapse |
 | **Booking** | 5-step booking wizard (Service → Barber → Date/Time → Info → Confirm) |
-| **Contact** | Contact form with validation, social links, address, and map area |
+| **Contact** | Contact form with validation, social links, address, business hours and info |
 
 ### ♿ Accessibility
 - ARIA roles (`tablist`, `tab`, `tabpanel`) on filter controls
@@ -54,7 +54,7 @@ A modern, responsive barbershop website built with **Next.js 16**, **Tailwind CS
 - **Open Graph + Twitter Cards** — Social sharing previews
 - **Sitemap.xml** — Search engine indexing
 - **PWA Manifest** — Install prompt support
-- **Lazy Image Loading** — IntersectionObserver-based with blur-up placeholders
+- **Lazy Image Loading** — Native `loading="lazy"` with CSS blur-up fade-in placeholders
 - **Custom SVG Favicon** — Brand-matched scissors icon
 
 ## 🛠️ Tech Stack
@@ -120,6 +120,12 @@ barbershop-website/
 │   │   ├── page.tsx      # Main page composing all sections
 │   │   └── sitemap.ts    # Auto-generated sitemap.xml
 │   ├── components/
+│   │   ├── AnimatedCounter.tsx  # Scroll-triggered number counter
+│   │   ├── BackToTop.tsx        # Floating scroll-to-top button
+│   │   ├── CursorGlow.tsx       # Ambient cursor follower glow
+│   │   ├── DemoBanner.tsx       # Dismissible demo notice banner
+│   │   ├── ScrollProgress.tsx   # Reading progress bar at top
+│   │   ├── ThemeToggle.tsx      # Dark/light mode switch
 │   │   ├── layout/       # Navbar, Footer
 │   │   ├── sections/     # Hero, About, Services, Gallery, Team, etc.
 │   │   └── ui/           # Button, Card, Accordion, Tabs, Dialog, etc.

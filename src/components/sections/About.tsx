@@ -136,7 +136,14 @@ export default function About() {
                 size="lg"
                 onClick={() => {
                   const el = document.querySelector("#booking");
-                  if (el) el.scrollIntoView({ behavior: "smooth" });
+                  if (el) {
+                    const navbarHeight = 80;
+                    const bannerEl = document.querySelector('[data-banner]');
+                    const bannerHeight = bannerEl ? 36 : 0;
+                    const offset = navbarHeight + bannerHeight + 20;
+                    const y = el.getBoundingClientRect().top + window.scrollY - offset;
+                    window.scrollTo({ top: y, behavior: "smooth" });
+                  }
                 }}
                 className="group shadow-lg shadow-gold/20 hover:shadow-xl hover:shadow-gold/30 transition-shadow duration-300"
               >
