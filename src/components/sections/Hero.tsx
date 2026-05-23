@@ -1,15 +1,37 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Scissors, ArrowRight, Sparkles } from "lucide-react";
+import { Scissors, ArrowRight, Sparkles, Star, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const floatingIcons = [
-  { Icon: Scissors, x: "15%", y: "20%", delay: 0, duration: 3 },
-  { Icon: Sparkles, x: "80%", y: "30%", delay: 1, duration: 4 },
-  { Icon: Scissors, x: "70%", y: "70%", delay: 0.5, duration: 3.5 },
-  { Icon: Sparkles, x: "20%", y: "75%", delay: 1.5, duration: 3 },
+  { Icon: Scissors, x: "15%", y: "20%", delay: 0, duration: 3, size: "w-8 h-8 md:w-12 md:h-12" },
+  { Icon: Sparkles, x: "80%", y: "25%", delay: 1, duration: 4, size: "w-6 h-6 md:w-10 md:h-10" },
+  { Icon: Scissors, x: "70%", y: "72%", delay: 0.5, duration: 3.5, size: "w-10 h-10 md:w-14 md:h-14" },
+  { Icon: Sparkles, x: "20%", y: "78%", delay: 1.5, duration: 3, size: "w-6 h-6 md:w-8 md:h-8" },
+  { Icon: Star, x: "90%", y: "55%", delay: 2, duration: 5, size: "w-4 h-4 md:w-6 md:h-6" },
+  { Icon: Star, x: "10%", y: "45%", delay: 0.8, duration: 4.5, size: "w-4 h-4 md:w-6 md:h-6" },
 ];
+
+const staggerContainer = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.2,
+    },
+  },
+};
+
+const fadeUpItem = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] as const },
+  },
+};
 
 export default function Hero() {
   const scrollTo = (id: string) => {
@@ -24,25 +46,43 @@ export default function Hero() {
     >
       {/* Animated Background */}
       <div className="absolute inset-0 bg-hero-gradient" />
-      <div className="absolute inset-0 opacity-20">
+      
+      {/* Decorative radial glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] md:w-[900px] h-[600px] md:h-[900px] bg-gold/8 rounded-full blur-[150px]" />
+      
+      {/* Subtle pattern overlay */}
+      <div className="absolute inset-0 opacity-15">
         <div className="absolute inset-0" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C8A87C' fill-opacity='0.15'%3E%3Cpath d='M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }} />
       </div>
 
       {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-dark-950/80" />
-      <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-dark-950/50 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-dark-950/40 via-transparent to-dark-950/90" />
+      <div className="absolute top-0 left-0 right-0 h-64 bg-gradient-to-b from-dark-950/60 to-transparent" />
+
+      {/* Decorative rotating rings */}
+      <motion.div
+        animate={{ rotate: 360 }}
+        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+        className="absolute top-1/4 -right-20 w-64 h-64 border border-gold/10 rounded-full"
+      />
+      <motion.div
+        animate={{ rotate: -360 }}
+        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+        className="absolute bottom-1/4 -left-20 w-48 h-48 border border-gold/8 rounded-full"
+      />
 
       {/* Floating icons */}
       {floatingIcons.map((item, i) => (
         <motion.div
           key={i}
-          className="absolute text-gold/10"
+          className={`absolute text-gold/12 ${item.size}`}
           style={{ left: item.x, top: item.y }}
           animate={{
-            y: [0, -20, 0],
-            rotate: [0, 10, -10, 0],
+            y: [0, -15, 0],
+            rotate: [0, 8, -8, 0],
+            opacity: [0.08, 0.15, 0.08],
           }}
           transition={{
             duration: item.duration,
@@ -51,44 +91,50 @@ export default function Hero() {
             ease: "easeInOut",
           }}
         >
-          <item.Icon className="w-12 h-12 md:w-16 md:h-16" />
+          <item.Icon className="w-full h-full" />
         </motion.div>
       ))}
 
       {/* Content */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 text-center">
+      <motion.div
+        variants={staggerContainer}
+        initial="hidden"
+        animate="visible"
+        className="relative z-10 max-w-5xl mx-auto px-4 text-center"
+      >
+        {/* Animated radial accent behind heading */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] as const }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[120px] -z-10"
+        />
+
         {/* Badge */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gold/30 bg-gold/5 text-gold text-xs font-medium mb-8 backdrop-blur-sm"
+          variants={fadeUpItem}
+          className="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-gold/30 bg-gold/8 text-gold text-xs font-medium mb-8 backdrop-blur-md"
         >
           <Sparkles className="w-3.5 h-3.5" />
           Premium Grooming Experience Since 2010
         </motion.div>
 
         {/* Main Heading */}
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight text-cream mb-6"
-        >
-          <span className="block">Where Style</span>
-          <span className="block mt-2">
-            Meets{" "}
-            <span className="text-transparent bg-clip-text bg-gold-gradient">
-              Precision
+        <motion.div variants={fadeUpItem}>
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight text-cream mb-6">
+            <span className="block">Where Style</span>
+            <span className="block mt-2">
+              Meets{" "}
+              <span className="text-transparent bg-clip-text bg-gold-gradient text-glow">
+                Precision
+              </span>
             </span>
-          </span>
-        </motion.h1>
+          </h1>
+        </motion.div>
 
         {/* Description */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.6 }}
+          variants={fadeUpItem}
           className="text-lg md:text-xl text-cream/60 max-w-2xl mx-auto mb-10 leading-relaxed"
         >
           Experience the art of traditional barbering with a modern edge. 
@@ -97,16 +143,14 @@ export default function Hero() {
 
         {/* CTA Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.8 }}
+          variants={fadeUpItem}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
           <Button
             variant="gold"
-            size="xl"
+            size="lg"
             onClick={() => scrollTo("#booking")}
-            className="group relative overflow-hidden"
+            className="group relative overflow-hidden px-6 py-3 shadow-lg shadow-gold/20 hover:shadow-xl hover:shadow-gold/30 transition-shadow duration-300"
           >
             <span className="relative z-10 flex items-center gap-2">
               Book Appointment
@@ -116,9 +160,9 @@ export default function Hero() {
           </Button>
           <Button
             variant="outline"
-            size="xl"
+            size="lg"
             onClick={() => scrollTo("#services")}
-            className="text-cream border-cream/20 hover:bg-cream/10"
+            className="text-cream border-cream/20 hover:bg-cream/10 backdrop-blur-sm px-6 py-3"
           >
             Our Services
           </Button>
@@ -126,9 +170,7 @@ export default function Hero() {
 
         {/* Stats */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1 }}
+          variants={fadeUpItem}
           className="grid grid-cols-3 gap-8 max-w-lg mx-auto mt-16 pt-16 border-t border-white/5"
         >
           {[
@@ -136,7 +178,7 @@ export default function Hero() {
             { value: "10K+", label: "Happy Clients" },
             { value: "4.9", label: "Rating" },
           ].map((stat) => (
-            <div key={stat.label} className="text-center">
+            <div key={stat.label} className="text-center relative">
               <div className="text-2xl md:text-3xl font-display font-bold text-gold mb-1">
                 {stat.value}
               </div>
@@ -146,7 +188,24 @@ export default function Hero() {
             </div>
           ))}
         </motion.div>
-      </div>
+      </motion.div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 0.8 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
+      >
+        <motion.div
+          animate={{ y: [0, 8, 0] }}
+          transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+          className="flex flex-col items-center gap-2 text-cream/30"
+        >
+          <span className="text-xs uppercase tracking-[0.2em]">Scroll</span>
+          <ChevronDown className="w-4 h-4" />
+        </motion.div>
+      </motion.div>
 
       {/* Bottom gradient fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-dark-950 to-transparent" />

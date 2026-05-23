@@ -1,9 +1,15 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Star, ChevronLeft, ChevronRight, Quote } from "lucide-react";
+import { useState, useEffect, useCallback } from "react";
+import { motion } from "framer-motion";
+import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  type CarouselApi,
+} from "@/components/ui/carousel";
 
 const testimonials = [
   {
@@ -39,49 +45,53 @@ const testimonials = [
 ];
 
 export default function Testimonials() {
+  const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
-  const [direction, setDirection] = useState(0);
+  const [count, setCount] = useState(0);
+
+  const onSelect = useCallback((carouselApi: CarouselApi) => {
+    if (!carouselApi) return;
+    setCurrent(carouselApi.selectedScrollSnap());
+  }, []);
 
   useEffect(() => {
+    if (!api) return;
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap());
+    const handleSelect = () => onSelect(api);
+    api.on("select", handleSelect);
+    return () => {
+      api.off("select", handleSelect);
+    };
+  }, [api, onSelect]);
+
+  // Auto-play
+  useEffect(() => {
+    if (!api) return;
     const timer = setInterval(() => {
-      nextTestimonial();
+      api.scrollNext();
     }, 5000);
     return () => clearInterval(timer);
-  }, [current]);
+  }, [api]);
 
-  const nextTestimonial = () => {
-    setDirection(1);
-    setCurrent((prev) => (prev + 1) % testimonials.length);
-  };
-
-  const prevTestimonial = () => {
-    setDirection(-1);
-    setCurrent((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  };
-
-  const variants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? 300 : -300,
-      opacity: 0,
-    }),
-    center: {
-      x: 0,
-      opacity: 1,
-    },
-    exit: (direction: number) => ({
-      x: direction > 0 ? -300 : 300,
-      opacity: 0,
-    }),
+  const scrollTo = (index: number) => {
+    api?.scrollTo(index);
   };
 
   return (
     <section id="testimonials" className="relative py-24 md:py-32 bg-dark-900 overflow-hidden">
+      {/* Section divider */}
+      <div className="section-divider" />
+
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-[0.03]">
         <div className="absolute inset-0" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3z' fill='%23C8A87C' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E")`,
         }} />
       </div>
+
+      {/* Warm glow background */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gold/5 rounded-full blur-[150px]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -106,84 +116,93 @@ export default function Testimonials() {
 
         {/* Testimonial Carousel */}
         <div className="max-w-3xl mx-auto">
-          <div className="relative min-h-[300px] flex items-center justify-center">
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={current}
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.4, ease: "easeInOut" }}
-                className="w-full"
-              >
-                <div className="text-center">
-                  {/* Quote icon */}
-                  <Quote className="w-12 h-12 text-gold/20 mx-auto mb-6" />
+          <div className="relative min-h-[320px] flex items-center justify-center">
+            {/* Decorative quote marks - static background */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <Quote className="w-32 h-32 text-gold/5" />
+            </div>
 
-                  {/* Stars */}
-                  <div className="flex items-center justify-center gap-1 mb-6">
-                    {Array.from({ length: testimonials[current].rating }).map((_, i) => (
-                      <Star
-                        key={i}
-                        className="w-5 h-5 text-gold fill-gold"
-                      />
-                    ))}
-                  </div>
+            <Carousel
+              setApi={setApi}
+              opts={{
+                loop: true,
+                align: "center",
+              }}
+              className="w-full"
+            >
+              <CarouselContent>
+                {testimonials.map((testimonial, index) => (
+                  <CarouselItem key={index}>
+                    <motion.div
+                      initial={{ opacity: 0, y: 15 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true }}
+                      className="text-center px-4"
+                    >
+                      {/* Stars */}
+                      <div className="flex items-center justify-center gap-1 mb-6">
+                        {Array.from({ length: testimonial.rating }).map((_, i) => (
+                          <Star
+                            key={i}
+                            className="w-5 h-5 text-gold fill-gold"
+                          />
+                        ))}
+                      </div>
 
-                  {/* Content */}
-                  <blockquote className="text-lg md:text-xl text-cream/80 leading-relaxed mb-8 italic">
-                    &ldquo;{testimonials[current].content}&rdquo;
-                  </blockquote>
+                      {/* Content */}
+                      <blockquote className="text-lg md:text-xl text-cream/80 leading-relaxed mb-8 italic">
+                        &ldquo;{testimonial.content}&rdquo;
+                      </blockquote>
 
-                  {/* Author */}
-                  <div>
-                    <div className="text-cream font-display font-semibold text-lg">
-                      {testimonials[current].name}
-                    </div>
-                    <div className="text-gold/60 text-sm">
-                      {testimonials[current].role}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-            </AnimatePresence>
+                      {/* Author */}
+                      <div>
+                        <div className="text-cream font-display font-semibold text-lg">
+                          {testimonial.name}
+                        </div>
+                        <div className="text-gold/60 text-sm">
+                          {testimonial.role}
+                        </div>
+                      </div>
+                    </motion.div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+            </Carousel>
           </div>
 
           {/* Navigation */}
-          <div className="flex items-center justify-center gap-4 mt-8">
+          <div className="flex items-center justify-center gap-4 mt-10">
             <button
-              onClick={prevTestimonial}
-              className="w-10 h-10 rounded-full bg-white/5 hover:bg-gold/20 border border-white/10 hover:border-gold/30 flex items-center justify-center text-cream/60 hover:text-gold transition-all duration-300"
+              onClick={() => api?.scrollPrev()}
+              className="w-10 h-10 rounded-full bg-white/5 hover:bg-gold/20 border border-white/10 hover:border-gold/30 flex items-center justify-center text-cream/60 hover:text-gold transition-all duration-300 group"
+              aria-label="Previous testimonial"
             >
-              <ChevronLeft className="w-5 h-5" />
+              <ChevronLeft className="w-5 h-5 transition-transform group-hover:-translate-x-0.5" />
             </button>
 
             {/* Dots */}
             <div className="flex items-center gap-2">
-              {testimonials.map((_, i) => (
+              {Array.from({ length: count }).map((_, i) => (
                 <button
                   key={i}
-                  onClick={() => {
-                    setDirection(i > current ? 1 : -1);
-                    setCurrent(i);
-                  }}
+                  onClick={() => scrollTo(i)}
                   className={cn(
-                    "w-2 h-2 rounded-full transition-all duration-300",
+                    "rounded-full transition-all duration-500",
                     i === current
-                      ? "bg-gold w-8"
-                      : "bg-white/20 hover:bg-white/40"
+                      ? "bg-gold w-8 h-2"
+                      : "bg-white/20 hover:bg-white/40 w-2 h-2"
                   )}
+                  aria-label={`Go to testimonial ${i + 1}`}
                 />
               ))}
             </div>
 
             <button
-              onClick={nextTestimonial}
-              className="w-10 h-10 rounded-full bg-white/5 hover:bg-gold/20 border border-white/10 hover:border-gold/30 flex items-center justify-center text-cream/60 hover:text-gold transition-all duration-300"
+              onClick={() => api?.scrollNext()}
+              className="w-10 h-10 rounded-full bg-white/5 hover:bg-gold/20 border border-white/10 hover:border-gold/30 flex items-center justify-center text-cream/60 hover:text-gold transition-all duration-300 group"
+              aria-label="Next testimonial"
             >
-              <ChevronRight className="w-5 h-5" />
+              <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />
             </button>
           </div>
         </div>

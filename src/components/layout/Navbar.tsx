@@ -1,10 +1,16 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Scissors } from "lucide-react";
+import { motion } from "framer-motion";
+import { Scissors, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import {
+  Sheet,
+  SheetContent,
+  SheetTitle,
+  SheetTrigger,
+} from "@/components/ui/sheet";
 
 const navLinks = [
   { href: "#hero", label: "Home" },
@@ -36,7 +42,7 @@ export default function Navbar() {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -52,11 +58,11 @@ export default function Navbar() {
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
       className={cn(
         "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
         scrolled
-          ? "bg-dark-950/95 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.3)] border-b border-white/5"
+          ? "bg-dark-950/90 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.3)] border-b border-white/5"
           : "bg-transparent"
       )}
     >
@@ -71,10 +77,11 @@ export default function Navbar() {
             }}
             className="flex items-center gap-3 group"
             whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
           >
             <div className="relative">
               <Scissors className="w-6 h-6 text-gold" />
-              <div className="absolute -inset-2 bg-gold/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="absolute -inset-2 bg-gold/20 rounded-full blur-md opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             </div>
             <span className="text-xl font-display font-bold tracking-wide">
               <span className="text-cream">BLACK<span className="text-gold">STAG</span></span>
@@ -111,7 +118,7 @@ export default function Navbar() {
                 variant="gold"
                 size="sm"
                 onClick={() => scrollToSection("#booking")}
-                className="relative overflow-hidden group"
+                className="relative overflow-hidden group shadow-lg shadow-gold/20"
               >
                 <span className="relative z-10">Book Now</span>
                 <div className="absolute inset-0 bg-gradient-to-r from-gold/0 via-white/20 to-gold/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
@@ -119,50 +126,57 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden relative w-10 h-10 flex items-center justify-center text-cream"
-            aria-label="Toggle menu"
-          >
-            {mobileOpen ? (
-              <X className="w-6 h-6" />
-            ) : (
-              <Menu className="w-6 h-6" />
-            )}
-          </button>
-        </div>
-      </nav>
+          {/* Mobile Menu - Sheet */}
+          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+            <SheetTrigger
+              render={
+                <button
+                  className="lg:hidden relative w-10 h-10 flex items-center justify-center text-cream hover:text-gold transition-colors"
+                  aria-label={mobileOpen ? "Close menu" : "Open menu"}
+                />
+              }
+            >
+              {mobileOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
+            </SheetTrigger>
+            <SheetContent
+              side="right"
+              className="bg-dark-950 border-l border-white/5 w-[280px] sm:w-[350px]"
+              showCloseButton={false}
+            >
+              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
 
-      {/* Mobile Nav */}
-      <AnimatePresence>
-        {mobileOpen && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="lg:hidden bg-dark-950/98 backdrop-blur-xl border-t border-white/5 overflow-hidden"
-          >
-            <div className="px-4 py-6 space-y-2">
-              {navLinks.map((link, i) => (
-                <motion.button
-                  key={link.href}
-                  onClick={() => scrollToSection(link.href)}
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: i * 0.05 }}
-                  className={cn(
-                    "block w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-colors",
-                    activeSection === link.href
-                      ? "text-gold bg-gold/10"
-                      : "text-cream/70 hover:text-cream hover:bg-white/5"
-                  )}
-                >
-                  {link.label}
-                </motion.button>
-              ))}
-              <div className="pt-4">
+              {/* Logo inside sheet */}
+              <div className="flex items-center gap-3 px-4 pt-6 pb-6 border-b border-white/5">
+                <Scissors className="w-5 h-5 text-gold" />
+                <span className="text-lg font-display font-bold tracking-wide">
+                  <span className="text-cream">BLACK<span className="text-gold">STAG</span></span>
+                </span>
+              </div>
+
+              {/* Navigation links */}
+              <div className="flex-1 px-2 py-4 space-y-1">
+                {navLinks.map((link) => (
+                  <button
+                    key={link.href}
+                    onClick={() => scrollToSection(link.href)}
+                    className={cn(
+                      "block w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200",
+                      activeSection === link.href
+                        ? "text-gold bg-gold/10 border-l-2 border-gold"
+                        : "text-cream/70 hover:text-cream hover:bg-white/5 border-l-2 border-transparent"
+                    )}
+                  >
+                    {link.label}
+                  </button>
+                ))}
+              </div>
+
+              {/* Booking button at bottom */}
+              <div className="px-4 pb-6 pt-4 border-t border-white/5">
                 <Button
                   variant="gold"
                   className="w-full"
@@ -171,10 +185,10 @@ export default function Navbar() {
                   Book Now
                 </Button>
               </div>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </SheetContent>
+          </Sheet>
+        </div>
+      </nav>
     </motion.header>
   );
 }

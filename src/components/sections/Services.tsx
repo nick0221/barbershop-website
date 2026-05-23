@@ -70,15 +70,19 @@ const itemVariants = {
   visible: {
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, ease: "easeOut" as const },
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
   },
 };
 
 export default function Services() {
   return (
     <section id="services" className="relative py-24 md:py-32 bg-dark-950">
+      {/* Section divider */}
+      <div className="section-divider" />
+      
       {/* Background accent */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gold/5 rounded-full blur-[120px]" />
+      <div className="absolute bottom-0 right-0 w-64 h-64 bg-gold/3 rounded-full blur-[100px]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
@@ -111,7 +115,7 @@ export default function Services() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+          className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {services.map((service, i) => (
             <motion.div key={service.title} variants={itemVariants}>
@@ -121,18 +125,21 @@ export default function Services() {
                   <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-64 bg-gold/10 rounded-full blur-[80px]" />
                 </div>
 
+                {/* Top decorative line */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+
                 {/* Popular badge */}
                 {service.popular && (
                   <div className="absolute top-4 right-4 z-10">
-                    <Badge variant="gold">Popular</Badge>
+                    <Badge variant="gold" className="animate-pulse-gold">Popular</Badge>
                   </div>
                 )}
 
                 <CardHeader className="relative">
-                  <div className="w-14 h-14 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center mb-4 group-hover:bg-gold/20 transition-colors duration-300">
+                  <div className="w-14 h-14 rounded-xl bg-gold/10 border border-gold/20 flex items-center justify-center mb-4 group-hover:bg-gold/20 group-hover:shadow-lg group-hover:shadow-gold/10 transition-all duration-300">
                     <service.icon className="w-7 h-7 text-gold" />
                   </div>
-                  <CardTitle className="text-cream group-hover:text-gold transition-colors duration-300">
+                  <CardTitle className="text-cream group-hover:text-gold transition-colors duration-300 text-xl">
                     {service.title}
                   </CardTitle>
                 </CardHeader>
@@ -141,7 +148,7 @@ export default function Services() {
                   <p className="text-cream/60 text-sm leading-relaxed">
                     {service.description}
                   </p>
-                  <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                  <div className="flex items-center justify-between pt-4 border-t border-white/5 group-hover:border-gold/10 transition-colors duration-500">
                     <div>
                       <span className="text-2xl font-display font-bold text-gold">
                         {service.price}
@@ -151,13 +158,14 @@ export default function Services() {
                     <Button
                       variant="ghost"
                       size="sm"
-                      className="text-cream/60 hover:text-gold hover:bg-gold/10"
+                      className="text-cream/60 hover:text-gold hover:bg-gold/10 relative overflow-hidden group/btn"
                       onClick={() => {
                         const el = document.querySelector("#booking");
                         if (el) el.scrollIntoView({ behavior: "smooth" });
                       }}
                     >
-                      Book Now
+                      <span className="relative z-10">Book Now</span>
+                      <div className="absolute inset-0 bg-gradient-to-r from-gold/0 via-gold/10 to-gold/0 translate-x-[-100%] group-hover/btn:translate-x-[100%] transition-transform duration-700" />
                     </Button>
                   </div>
                 </CardContent>

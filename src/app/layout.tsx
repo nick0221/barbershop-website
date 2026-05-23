@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
-import { Inter, Playfair_Display } from "next/font/google";
+import { Outfit, Playfair_Display, Geist } from "next/font/google";
 import "./globals.css";
+import { cn } from "@/lib/utils";
 
-const inter = Inter({
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
+
+const outfit = Outfit({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-outfit",
   display: "swap",
 });
 
@@ -42,12 +45,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className={cn("scroll-smooth", "font-sans", geist.variable)}>
       <head>
         <meta name="theme-color" content="#0d0d0d" />
       </head>
       <body
-        className={`${inter.variable} ${playfair.variable} antialiased bg-dark-950 text-cream`}
+        className={`${outfit.variable} ${playfair.variable} antialiased bg-dark-950 text-cream selection:bg-gold/30 selection:text-cream`}
       >
         {children}
       </body>

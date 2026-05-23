@@ -1,9 +1,14 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { X, Scissors, Sparkles, Crown, Eye } from "lucide-react";
+import { motion } from "framer-motion";
+import { Scissors, Sparkles, Crown, Eye, Expand, X } from "lucide-react";
 import { cn } from "@/lib/utils";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const galleryImages = [
   { id: 1, icon: Scissors, label: "Classic Cuts", category: "Cuts", color: "from-amber-900/40 to-amber-700/20" },
@@ -26,9 +31,18 @@ export default function Gallery() {
     ? galleryImages
     : galleryImages.filter((img) => img.category === activeFilter);
 
+  const selected = selectedImage ? galleryImages.find((g) => g.id === selectedImage) : null;
+
   return (
     <section id="gallery" className="relative py-24 md:py-32 bg-dark-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Section divider */}
+      <div className="section-divider" />
+
+      {/* Background accents */}
+      <div className="absolute top-20 left-20 w-48 h-48 bg-gold/5 rounded-full blur-[100px]" />
+      <div className="absolute bottom-20 right-20 w-48 h-48 bg-gold/3 rounded-full blur-[100px]" />
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -82,7 +96,7 @@ export default function Gallery() {
           className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
         >
           {filteredImages.map((image, i) => (
-            <motion.div
+            <motion.button
               key={image.id}
               layout
               initial={{ opacity: 0, scale: 0.8 }}
@@ -90,12 +104,12 @@ export default function Gallery() {
               viewport={{ once: true }}
               transition={{ duration: 0.4, delay: i * 0.05 }}
               whileHover={{ scale: 1.02 }}
+              onClick={() => setSelectedImage(image.id)}
               className={cn(
-                "relative group cursor-pointer rounded-xl overflow-hidden aspect-square",
+                "relative group cursor-pointer rounded-xl overflow-hidden aspect-square text-left",
                 i === 0 && "md:col-span-2 md:row-span-2",
                 i === 3 && "md:row-span-2",
               )}
-              onClick={() => setSelectedImage(image.id)}
             >
               {/* Placeholder with gradient */}
               <div className={cn(
@@ -104,6 +118,16 @@ export default function Gallery() {
                 "group-hover:scale-110 transition-transform duration-700"
               )}>
                 <div className="absolute inset-0 bg-dark-950/60 group-hover:bg-dark-950/40 transition-colors duration-500" />
+              </div>
+
+              {/* Decorative frame line on hover */}
+              <div className="absolute inset-2 border border-white/0 group-hover:border-gold/20 rounded-lg transition-all duration-500 z-20" />
+
+              {/* Expand icon */}
+              <div className="absolute top-3 right-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center">
+                  <Expand className="w-4 h-4 text-cream" />
+                </div>
               </div>
 
               {/* Content */}
@@ -117,57 +141,70 @@ export default function Gallery() {
                 </p>
               </div>
 
-              {/* Hover overlay */}
+              {/* Hover overlay border */}
               <div className="absolute inset-0 border border-white/0 group-hover:border-gold/30 rounded-xl transition-colors duration-300" />
-            </motion.div>
+            </motion.button>
           ))}
         </motion.div>
       </div>
 
-      {/* Lightbox */}
-      <AnimatePresence>
-        {selectedImage && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
-            onClick={() => setSelectedImage(null)}
-          >
-            <motion.div
-              initial={{ scale: 0.8, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.8, opacity: 0 }}
-              transition={{ type: "spring", bounce: 0.2 }}
-              className="relative max-w-3xl w-full aspect-video rounded-2xl overflow-hidden"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-gold/20 to-dark-900 flex items-center justify-center">
-                <div className="text-center">
-                  {(() => {
-                    const img = galleryImages.find((g) => g.id === selectedImage);
-                    if (!img) return null;
-                    const Icon = img.icon;
-                    return (
-                      <>
-                        <Icon className="w-20 h-20 text-gold/40 mx-auto mb-4" />
-                        <h3 className="text-cream text-2xl font-display font-bold">{img.label}</h3>
-                        <p className="text-cream/40 mt-2">Gallery preview</p>
-                      </>
-                    );
-                  })()}
-                </div>
+      {/* Lightbox Dialog */}
+      <Dialog
+        open={selectedImage !== null}
+        onOpenChange={(open) => {
+          if (!open) setSelectedImage(null);
+        }}
+      >
+        <DialogContent
+          showCloseButton={false}
+          className="max-w-4xl bg-dark-950 border border-gold/10 p-0 overflow-hidden rounded-2xl shadow-2xl shadow-black/50"
+        >
+          <DialogTitle className="sr-only">
+            {selected?.label ?? "Gallery Image"}
+          </DialogTitle>
+          <div className="relative aspect-video">
+            <div className="absolute inset-0 bg-gradient-to-br from-gold/15 to-dark-900 flex items-center justify-center">
+              <div className="text-center">
+                {selected && (
+                  <>
+                    <motion.div
+                      initial={{ scale: 0 }}
+                      animate={{ scale: 1 }}
+                      transition={{ type: "spring", bounce: 0.3, delay: 0.1 }}
+                    >
+                      <selected.icon className="w-20 h-20 text-gold/40 mx-auto mb-4" />
+                    </motion.div>
+                    <motion.h3
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="text-cream text-2xl font-display font-bold"
+                    >
+                      {selected.label}
+                    </motion.h3>
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ delay: 0.3 }}
+                      className="text-cream/40 mt-2"
+                    >
+                      Gallery preview
+                    </motion.p>
+                  </>
+                )}
               </div>
-              <button
-                onClick={() => setSelectedImage(null)}
-                className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 flex items-center justify-center text-white hover:bg-black/70 transition-colors"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </div>
+
+            {/* Custom close button styled for dark theme */}
+            <button
+              onClick={() => setSelectedImage(null)}
+              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white hover:bg-gold/30 hover:text-gold transition-all duration-300 border border-white/10 hover:border-gold/30 z-10"
+            >
+              <X className="w-5 h-5" />
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }

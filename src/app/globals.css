@@ -4,57 +4,87 @@
 
 @layer base {
   :root {
-    --background: 36 39% 94%;
-    --foreground: 0 0% 7%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 7%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 7%;
-    --primary: 35 40% 64%;
-    --primary-foreground: 0 0% 7%;
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 0 0% 96%;
-    --muted: 36 20% 90%;
-    --muted-foreground: 0 0% 45%;
-    --accent: 35 30% 85%;
-    --accent-foreground: 0 0% 7%;
-    --destructive: 0 84% 60%;
+    --background: oklch(1 0 0);
+    --foreground: oklch(0.145 0 0);
+    --card: oklch(1 0 0);
+    --card-foreground: oklch(0.145 0 0);
+    --popover: oklch(1 0 0);
+    --popover-foreground: oklch(0.145 0 0);
+    --primary: oklch(0.205 0 0);
+    --primary-foreground: oklch(0.985 0 0);
+    --secondary: oklch(0.97 0 0);
+    --secondary-foreground: oklch(0.205 0 0);
+    --muted: oklch(0.97 0 0);
+    --muted-foreground: oklch(0.556 0 0);
+    --accent: oklch(0.97 0 0);
+    --accent-foreground: oklch(0.205 0 0);
+    --destructive: oklch(0.577 0.245 27.325);
     --destructive-foreground: 0 0% 98%;
-    --border: 36 20% 85%;
-    --input: 36 20% 85%;
-    --ring: 35 40% 64%;
-    --radius: 0.5rem;
+    --border: oklch(0.922 0 0);
+    --input: oklch(0.922 0 0);
+    --ring: oklch(0.708 0 0);
+    --radius: 0.625rem;
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --sidebar: oklch(0.985 0 0);
+    --sidebar-foreground: oklch(0.145 0 0);
+    --sidebar-primary: oklch(0.205 0 0);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.97 0 0);
+    --sidebar-accent-foreground: oklch(0.205 0 0);
+    --sidebar-border: oklch(0.922 0 0);
+    --sidebar-ring: oklch(0.708 0 0);
   }
 
   .dark {
-    --background: 0 0% 7%;
-    --foreground: 36 39% 94%;
-    --card: 0 0% 10%;
-    --card-foreground: 36 39% 94%;
-    --popover: 0 0% 10%;
-    --popover-foreground: 36 39% 94%;
-    --primary: 35 40% 64%;
-    --primary-foreground: 0 0% 7%;
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 36 39% 94%;
-    --muted: 0 0% 15%;
-    --muted-foreground: 0 0% 65%;
-    --accent: 35 20% 20%;
-    --accent-foreground: 36 39% 94%;
-    --destructive: 0 62% 30%;
+    --background: oklch(0.145 0 0);
+    --foreground: oklch(0.985 0 0);
+    --card: oklch(0.205 0 0);
+    --card-foreground: oklch(0.985 0 0);
+    --popover: oklch(0.205 0 0);
+    --popover-foreground: oklch(0.985 0 0);
+    --primary: oklch(0.922 0 0);
+    --primary-foreground: oklch(0.205 0 0);
+    --secondary: oklch(0.269 0 0);
+    --secondary-foreground: oklch(0.985 0 0);
+    --muted: oklch(0.269 0 0);
+    --muted-foreground: oklch(0.708 0 0);
+    --accent: oklch(0.269 0 0);
+    --accent-foreground: oklch(0.985 0 0);
+    --destructive: oklch(0.704 0.191 22.216);
     --destructive-foreground: 36 39% 94%;
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 35 40% 64%;
+    --border: oklch(1 0 0 / 10%);
+    --input: oklch(1 0 0 / 15%);
+    --ring: oklch(0.556 0 0);
+    --chart-1: oklch(0.87 0 0);
+    --chart-2: oklch(0.556 0 0);
+    --chart-3: oklch(0.439 0 0);
+    --chart-4: oklch(0.371 0 0);
+    --chart-5: oklch(0.269 0 0);
+    --sidebar: oklch(0.205 0 0);
+    --sidebar-foreground: oklch(0.985 0 0);
+    --sidebar-primary: oklch(0.488 0.243 264.376);
+    --sidebar-primary-foreground: oklch(0.985 0 0);
+    --sidebar-accent: oklch(0.269 0 0);
+    --sidebar-accent-foreground: oklch(0.985 0 0);
+    --sidebar-border: oklch(1 0 0 / 10%);
+    --sidebar-ring: oklch(0.556 0 0);
   }
-}
-
-@layer base {
+  .theme {
+    --font-heading: var(--font-sans);
+    --font-sans: var(--font-sans);
+  }
   * {
-    @apply border-border;
+    @apply border-border outline-ring/50;
   }
   body {
     @apply bg-background text-foreground font-body;
+  }
+  html {
+    @apply font-sans;
   }
   h1,
   h2,
@@ -70,20 +100,51 @@
   .text-balance {
     text-wrap: balance;
   }
+  .noise-overlay {
+    @apply pointer-events-none fixed inset-0 z-[100] opacity-[0.03];
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 256px 256px;
+    mix-blend-mode: overlay;
+    animation: grain 8s steps(10) infinite;
+  }
+  .text-glow {
+    text-shadow: 0 0 40px rgba(200, 168, 124, 0.3), 0 0 80px rgba(200, 168, 124, 0.1);
+  }
+  .shimmer-overlay {
+    @apply absolute inset-0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(200, 168, 124, 0.08) 50%,
+      transparent 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 3s infinite;
+  }
+  .section-divider {
+    @apply absolute bottom-0 left-0 right-0 h-px;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(200, 168, 124, 0.3) 50%,
+      transparent 100%
+    );
+  }
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1a1a;
+  background: #080808;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #C8A87C;
-  border-radius: 4px;
+  background: linear-gradient(180deg, #C8A87C, #8B6914);
+  border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -95,8 +156,28 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Selection color */
-::selection {
-  background-color: #C8A87C;
-  color: #1a1a1a;
+/* Selection color - handled via Tailwind in layout */
+
+/* Focus ring refinement */
+*:focus-visible {
+  outline: 2px solid #C8A87C;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Refined link underlines */
+a:not(.no-underline) {
+  @apply decoration-gold/30 decoration-1 underline-offset-2;
+}
+
+/* Smooth image loading */
+img {
+  @apply transition-opacity duration-500;
+}
+img[loading="lazy"] {
+  @apply opacity-0;
+}
+img[loading="lazy"].loaded,
+img[loading="lazy"][complete] {
+  @apply opacity-100;
 }

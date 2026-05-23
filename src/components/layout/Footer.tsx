@@ -1,4 +1,4 @@
-import { Scissors, Camera, MessageCircle, Globe, MapPin, Phone, Clock } from "lucide-react";
+import { Scissors, Camera, MessageCircle, Globe, MapPin, Phone, ArrowUpRight } from "lucide-react";
 
 const footerLinks = {
   services: [
@@ -25,12 +25,18 @@ const footerLinks = {
 export default function Footer() {
   return (
     <footer className="bg-dark-950 border-t border-white/5 relative overflow-hidden">
+      {/* Decorative top gradient */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
+      
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-[0.03]">
         <div className="absolute inset-0" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C8A87C' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }} />
       </div>
+
+      {/* Background glow */}
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gold/3 rounded-full blur-[120px]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 relative z-10">
         {/* Top Section */}
@@ -65,15 +71,19 @@ export default function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="text-cream font-display text-lg font-semibold mb-6">Services</h3>
+            <h3 className="text-cream font-display text-lg font-semibold mb-6 relative inline-block">
+              Services
+              <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-gold/60 to-transparent" />
+            </h3>
             <ul className="space-y-3">
               {footerLinks.services.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-cream/60 hover:text-gold text-sm transition-colors duration-200"
+                    className="text-cream/60 hover:text-gold text-sm transition-colors duration-200 flex items-center gap-1 group/link"
                   >
                     {link.label}
+                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-1 group-hover/link:opacity-100 group-hover/link:translate-y-0 transition-all duration-200" />
                   </a>
                 </li>
               ))}
@@ -82,15 +92,19 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-cream font-display text-lg font-semibold mb-6">Quick Links</h3>
+            <h3 className="text-cream font-display text-lg font-semibold mb-6 relative inline-block">
+              Quick Links
+              <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-gold/60 to-transparent" />
+            </h3>
             <ul className="space-y-3">
               {footerLinks.quickLinks.map((link) => (
                 <li key={link.label}>
                   <a
                     href={link.href}
-                    className="text-cream/60 hover:text-gold text-sm transition-colors duration-200"
+                    className="text-cream/60 hover:text-gold text-sm transition-colors duration-200 flex items-center gap-1 group/link"
                   >
                     {link.label}
+                    <ArrowUpRight className="w-3 h-3 opacity-0 -translate-y-1 group-hover/link:opacity-100 group-hover/link:translate-y-0 transition-all duration-200" />
                   </a>
                 </li>
               ))}
@@ -99,7 +113,10 @@ export default function Footer() {
 
           {/* Hours */}
           <div>
-            <h3 className="text-cream font-display text-lg font-semibold mb-6">Hours</h3>
+            <h3 className="text-cream font-display text-lg font-semibold mb-6 relative inline-block">
+              Hours
+              <span className="absolute -bottom-1 left-0 right-0 h-[2px] bg-gradient-to-r from-gold/60 to-transparent" />
+            </h3>
             <ul className="space-y-4">
               {footerLinks.hours.map((item) => (
                 <li key={item.day} className="text-sm">
@@ -109,28 +126,40 @@ export default function Footer() {
                 </li>
               ))}
             </ul>
-            <div className="mt-6 pt-6 border-t border-white/5 space-y-2">
-              <a href="#" className="flex items-center gap-2 text-cream/60 hover:text-gold text-sm transition-colors">
-                <MapPin className="w-3.5 h-3.5" />
+            <div className="mt-6 pt-6 border-t border-white/5 space-y-3">
+              <a href="#" className="flex items-center gap-2 text-cream/60 hover:text-gold text-sm transition-colors group/link">
+                <MapPin className="w-3.5 h-3.5 text-gold/60" />
                 123 Barber Street, NY 10001
               </a>
-              <a href="#" className="flex items-center gap-2 text-cream/60 hover:text-gold text-sm transition-colors">
-                <Phone className="w-3.5 h-3.5" />
+              <a href="#" className="flex items-center gap-2 text-cream/60 hover:text-gold text-sm transition-colors group/link">
+                <Phone className="w-3.5 h-3.5 text-gold/60" />
                 (555) 123-4567
               </a>
             </div>
           </div>
         </div>
 
+        {/* Bottom decorative divider */}
+        <div className="relative mb-8">
+          <div className="absolute inset-0 flex items-center">
+            <div className="w-full border-t border-white/5" />
+          </div>
+          <div className="relative flex justify-center">
+            <div className="px-4 bg-dark-950">
+              <Scissors className="w-4 h-4 text-gold/30" />
+            </div>
+          </div>
+        </div>
+
         {/* Bottom Bar */}
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-cream/40 text-xs">
             © {new Date().getFullYear()} BlackStag Barbershop. All rights reserved.
           </p>
           <div className="flex items-center gap-4 text-cream/40 text-xs">
-            <a href="#" className="hover:text-gold transition-colors">Privacy Policy</a>
-            <span>|</span>
-            <a href="#" className="hover:text-gold transition-colors">Terms of Service</a>
+            <a href="#" className="hover:text-gold transition-colors duration-200">Privacy Policy</a>
+            <span className="text-white/10">|</span>
+            <a href="#" className="hover:text-gold transition-colors duration-200">Terms of Service</a>
           </div>
         </div>
       </div>

@@ -34,10 +34,11 @@ const config: Config = {
           800: "#454545",
           900: "#1a1a1a",
           950: "#0d0d0d",
+          975: "#080808",
         },
         cream: "#FAF7F2",
         gold: "#C8A87C",
-        // shadcn CSS variable-based colors
+        bronze: "#8B6914",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {
@@ -74,7 +75,7 @@ const config: Config = {
       },
       fontFamily: {
         display: ["var(--font-playfair)", "Georgia", "serif"],
-        body: ["var(--font-inter)", "system-ui", "sans-serif"],
+        body: ["var(--font-outfit)", "system-ui", "sans-serif"],
       },
       borderRadius: {
         lg: "var(--radius)",
@@ -89,6 +90,13 @@ const config: Config = {
         shimmer: "shimmer 2s infinite",
         "spin-slow": "spin 8s linear infinite",
         float: "float 3s ease-in-out infinite",
+        "pulse-gold": "pulseGold 2s ease-in-out infinite",
+        "drift-slow": "drift 20s ease-in-out infinite",
+        "grain": "grain 8s steps(10) infinite",
+        "glow-pulse": "glowPulse 3s ease-in-out infinite",
+        "reveal-up": "revealUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "reveal-down": "revealDown 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards",
+        "ken-burns": "kenBurns 20s ease-in-out infinite alternate",
       },
       keyframes: {
         fadeIn: {
@@ -115,18 +123,59 @@ const config: Config = {
           "0%, 100%": { transform: "translateY(0)" },
           "50%": { transform: "translateY(-10px)" },
         },
+        pulseGold: {
+          "0%, 100%": { opacity: "0.6" },
+          "50%": { opacity: "1" },
+        },
+        drift: {
+          "0%, 100%": { transform: "translate(0, 0)" },
+          "25%": { transform: "translate(30px, -20px)" },
+          "50%": { transform: "translate(-20px, 30px)" },
+          "75%": { transform: "translate(20px, -10px)" },
+        },
+        grain: {
+          "0%, 100%": { transform: "translate(0, 0)" },
+          "10%": { transform: "translate(-5%, -5%)" },
+          "20%": { transform: "translate(-10%, 5%)" },
+          "30%": { transform: "translate(5%, -10%)" },
+          "40%": { transform: "translate(-5%, 15%)" },
+          "50%": { transform: "translate(-10%, 5%)" },
+          "60%": { transform: "translate(15%, 0)" },
+          "70%": { transform: "translate(0, 10%)" },
+          "80%": { transform: "translate(-15%, 0)" },
+          "90%": { transform: "translate(10%, 5%)" },
+        },
+        glowPulse: {
+          "0%, 100%": { boxShadow: "0 0 20px rgba(200, 168, 124, 0.1)" },
+          "50%": { boxShadow: "0 0 40px rgba(200, 168, 124, 0.25)" },
+        },
+        revealUp: {
+          "0%": { clipPath: "inset(100% 0 0 0)", transform: "translateY(30px)" },
+          "100%": { clipPath: "inset(0 0 0 0)", transform: "translateY(0)" },
+        },
+        revealDown: {
+          "0%": { clipPath: "inset(0 0 100% 0)", transform: "translateY(-30px)" },
+          "100%": { clipPath: "inset(0 0 0 0)", transform: "translateY(0)" },
+        },
+        kenBurns: {
+          "0%": { transform: "scale(1) translate(0, 0)" },
+          "100%": { transform: "scale(1.1) translate(-10px, -5px)" },
+        },
       },
       backgroundImage: {
         "barber-pattern": "url('/images/barber-pattern.png')",
         "hero-gradient":
-          "linear-gradient(135deg, #0d0d0d 0%, #1a1a1a 50%, #2a1a0a 100%)",
+          "linear-gradient(135deg, #080808 0%, #1a1a1a 40%, #2a1a0a 100%)",
         "gold-gradient":
           "linear-gradient(135deg, #C8A87C 0%, #E2A44E 50%, #C8A87C 100%)",
-        "dark-gradient": "linear-gradient(180deg, #0d0d0d 0%, #1a1a1a 100%)",
+        "dark-gradient": "linear-gradient(180deg, #080808 0%, #0d0d0d 100%)",
+        "warm-glow":
+          "radial-gradient(ellipse at 50% 0%, rgba(200,168,124,0.15) 0%, transparent 70%)",
+        "noise": "url(\"data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E\")",
       },
     },
   },
-  plugins: [],
+  plugins: [require("tailwindcss-animate")],
 };
 
 export default config;
