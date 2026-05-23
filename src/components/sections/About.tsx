@@ -56,9 +56,11 @@ export default function About() {
             {/* Main Image */}
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
               <img
-                src="https://images.unsplash.com/photo-1503951590938-420360481d83?w=900&q=80&auto=format&fit=crop"
+                src="https://images.unsplash.com/photo-1596728325488-58c87691e9af?w=900&q=80&auto=format&fit=crop"
                 alt="BlackStag Barbershop interior with classic barber chairs"
                 loading="lazy"
+                data-loaded="false"
+                onLoad={(e) => (e.currentTarget.dataset.loaded = "true")}
                 className="absolute inset-0 w-full h-full object-cover"
               />
 

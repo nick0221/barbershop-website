@@ -203,14 +203,13 @@ a:not(.no-underline) {
   @apply decoration-gold/30 decoration-1 underline-offset-2;
 }
 
-/* Smooth image loading with blur reveal */
+/* Smooth image loading with fade-in on load */
 img {
-  @apply transition-all duration-700;
+  @apply transition-all duration-500;
 }
-img[loading="lazy"] {
+img[data-loaded="false"] {
   @apply opacity-0 blur-sm scale-[1.02];
 }
-img[loading="lazy"].loaded,
-img[loading="lazy"][complete] {
+img[data-loaded="true"] {
   @apply opacity-100 blur-0 scale-100;
 }
