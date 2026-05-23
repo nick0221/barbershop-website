@@ -99,7 +99,7 @@ export default function Services() {
       : services.filter((s) => s.category === activeCategory);
 
   return (
-    <section id="services" className="relative py-24 md:py-32 bg-dark-950">
+    <section id="services" className="relative py-24 md:py-32 bg-dark-950 scroll-mt-20">
       {/* Section divider */}
       <div className="section-divider" />
       

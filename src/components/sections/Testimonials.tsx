@@ -79,7 +79,7 @@ export default function Testimonials() {
   };
 
   return (
-    <section id="testimonials" className="relative py-24 md:py-32 bg-dark-900 overflow-hidden">
+    <section id="testimonials" className="relative py-24 md:py-32 bg-dark-900 overflow-hidden scroll-mt-20">
       {/* Section divider */}
       <div className="section-divider" />
 

@@ -34,7 +34,7 @@ export default function Gallery() {
   const selected = selectedImage ? galleryImages.find((g) => g.id === selectedImage) : null;
 
   return (
-    <section id="gallery" className="relative py-24 md:py-32 bg-dark-900">
+    <section id="gallery" className="relative py-24 md:py-32 bg-dark-900 scroll-mt-20">
       {/* Section divider */}
       <div className="section-divider" />
 

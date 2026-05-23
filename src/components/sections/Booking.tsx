@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 export default function Booking() {
   return (
-    <section id="booking" className="relative py-24 md:py-32 overflow-hidden">
+    <section id="booking" className="relative py-24 md:py-32 overflow-hidden scroll-mt-20">
       {/* Background */}
       <div className="absolute inset-0 bg-hero-gradient" />
       <div className="absolute inset-0 opacity-15">

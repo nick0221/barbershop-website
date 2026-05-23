@@ -69,7 +69,7 @@ const itemVariants = {
 
 export default function Team() {
   return (
-    <section id="team" className="relative py-24 md:py-32 bg-dark-950 overflow-hidden">
+    <section id="team" className="relative py-24 md:py-32 bg-dark-950 overflow-hidden scroll-mt-20">
       {/* Section divider */}
       <div className="section-divider" />
       
