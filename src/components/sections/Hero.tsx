@@ -101,7 +101,7 @@ export default function Hero() {
         variants={staggerContainer}
         initial="hidden"
         animate="visible"
-        className="relative z-10 max-w-5xl mx-auto px-4 text-center"
+        className="relative z-10 max-w-5xl mx-auto px-4 text-center pt-24 md:pt-28"
       >
         {/* Animated radial accent behind heading */}
         <motion.div
