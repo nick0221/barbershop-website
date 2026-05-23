@@ -3,12 +3,13 @@
 import { motion } from "framer-motion";
 import { Scissors, Award, Users, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 const stats = [
-  { icon: Award, value: "15+", label: "Years of Excellence" },
-  { icon: Users, value: "10K+", label: "Happy Customers" },
-  { icon: Scissors, value: "50K+", label: "Haircuts Done" },
-  { icon: Star, value: "4.9", label: "Average Rating" },
+  { icon: Award, target: 15, suffix: "+", label: "Years of Excellence" },
+  { icon: Users, target: 10000, suffix: "+", label: "Happy Customers" },
+  { icon: Scissors, target: 50000, suffix: "+", label: "Haircuts Done" },
+  { icon: Star, target: 4.9, suffix: "", decimals: 1, label: "Average Rating" },
 ];
 
 const staggerContainer = {
@@ -159,7 +160,7 @@ export default function About() {
                     <stat.icon className="w-4 h-4 text-gold" />
                   </div>
                   <div className="text-xl font-display font-bold text-cream group-hover:text-gold transition-colors duration-300">
-                    {stat.value}
+                    <AnimatedCounter target={stat.target} suffix={stat.suffix} decimals={stat.decimals ?? 0} />
                   </div>
                   <div className="text-xs text-cream/40 mt-1">{stat.label}</div>
                 </motion.div>

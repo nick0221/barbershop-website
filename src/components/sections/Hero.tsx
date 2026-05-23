@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Scissors, ArrowRight, Sparkles, Star, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import AnimatedCounter from "@/components/AnimatedCounter";
 
 const floatingIcons = [
   { Icon: Scissors, x: "15%", y: "20%", delay: 0, duration: 3, size: "w-8 h-8 md:w-12 md:h-12" },
@@ -174,13 +175,17 @@ export default function Hero() {
           className="grid grid-cols-3 gap-8 max-w-lg mx-auto mt-16 pt-16 border-t border-white/5"
         >
           {[
-            { value: "15+", label: "Years Experience" },
-            { value: "10K+", label: "Happy Clients" },
-            { value: "4.9", label: "Rating" },
+            { target: 15, suffix: "+", label: "Years Experience" },
+            { target: 10000, suffix: "+", label: "Happy Clients" },
+            { target: 4.9, suffix: "", decimals: 1, label: "Rating" },
           ].map((stat) => (
             <div key={stat.label} className="text-center relative">
               <div className="text-2xl md:text-3xl font-display font-bold text-gold mb-1">
-                {stat.value}
+                <AnimatedCounter
+                  target={stat.target}
+                  suffix={stat.suffix}
+                  decimals={stat.decimals ?? 0}
+                />
               </div>
               <div className="text-xs text-cream/40 uppercase tracking-wider">
                 {stat.label}

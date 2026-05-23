@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Outfit, Playfair_Display, Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import ScrollProgress from "@/components/ScrollProgress";
+import BackToTop from "@/components/BackToTop";
+import CursorGlow from "@/components/CursorGlow";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -52,6 +55,16 @@ export default function RootLayout({
       <body
         className={`${outfit.variable} ${playfair.variable} antialiased bg-dark-950 text-cream selection:bg-gold/30 selection:text-cream`}
       >
+        {/* Fixed UI overlays */}
+        <ScrollProgress />
+        <BackToTop />
+
+        {/* Ambient cursor glow that follows mouse */}
+        <CursorGlow />
+
+        {/* Noise texture overlay */}
+        <div className="noise-overlay" aria-hidden="true" />
+
         {children}
       </body>
     </html>
