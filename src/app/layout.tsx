@@ -22,6 +22,8 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
+const siteUrl = "https://website-barbershop-two.vercel.app";
+
 export const metadata: Metadata = {
   title: "BlackStag Barbershop | Premium Grooming Experience",
   description:
@@ -34,14 +36,61 @@ export const metadata: Metadata = {
     "grooming",
     "barber",
     "New York barber",
+    "BlackStag",
+    "premium grooming",
+    "barbershop NYC",
   ],
+  authors: [{ name: "BlackStag Barbershop" }],
+  creator: "BlackStag Barbershop",
+  publisher: "BlackStag Barbershop",
+  metadataBase: new URL(siteUrl),
+  alternates: {
+    canonical: "/",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   openGraph: {
     title: "BlackStag Barbershop | Premium Grooming Experience",
     description:
-      "Experience the art of traditional barbering with a modern edge.",
+      "Experience the art of traditional barbering with a modern edge. Book your appointment for premium haircuts, beard grooming, and hot towel shaves.",
+    url: siteUrl,
+    siteName: "BlackStag Barbershop",
     type: "website",
     locale: "en_US",
+    images: [
+      {
+        url: "/images/hairstyl-1.jpg",
+        width: 1200,
+        height: 630,
+        alt: "BlackStag Barbershop - Premium Grooming",
+      },
+    ],
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "BlackStag Barbershop | Premium Grooming Experience",
+    description:
+      "Experience the art of traditional barbering with a modern edge. Book your appointment for premium haircuts, beard grooming, and hot towel shaves.",
+    images: ["/images/hairstyl-1.jpg"],
+    creator: "@blackstagbarber",
+    site: "@blackstagbarber",
+  },
+  icons: {
+    icon: { url: "/favicon.svg", type: "image/svg+xml" },
+    shortcut: { url: "/favicon.svg", type: "image/svg+xml" },
+  },
+  manifest: "/site.webmanifest",
+  category: "barbershop",
+  classification: "Grooming Services",
 };
 
 export default function RootLayout({

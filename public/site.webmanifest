@@ -1,0 +1,17 @@
+{
+  "name": "BlackStag Barbershop",
+  "short_name": "BlackStag",
+  "description": "Premium barbershop providing exceptional grooming services with a classic touch.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#080808",
+  "theme_color": "#C8A87C",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
