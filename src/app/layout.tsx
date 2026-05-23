@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import ScrollProgress from "@/components/ScrollProgress";
 import BackToTop from "@/components/BackToTop";
 import CursorGlow from "@/components/CursorGlow";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
@@ -65,7 +66,9 @@ export default function RootLayout({
         {/* Noise texture overlay */}
         <div className="noise-overlay" aria-hidden="true" />
 
-        {children}
+        <TooltipProvider delay={300}>
+          {children}
+        </TooltipProvider>
       </body>
     </html>
   );

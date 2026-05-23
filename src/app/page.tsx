@@ -6,6 +6,7 @@ import Services from "@/components/sections/Services";
 import Gallery from "@/components/sections/Gallery";
 import Team from "@/components/sections/Team";
 import Testimonials from "@/components/sections/Testimonials";
+import FAQ from "@/components/sections/FAQ";
 import Contact from "@/components/sections/Contact";
 import Booking from "@/components/sections/Booking";
 
@@ -19,6 +20,7 @@ export default function Home() {
       <Gallery />
       <Team />
       <Testimonials />
+      <FAQ />
       <Contact />
       <Booking />
       <Footer />

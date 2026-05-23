@@ -1,8 +1,9 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Star } from "lucide-react";
+import { Star, Award, Clock, ThumbsUp, Scissors } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
+import { Tooltip, TooltipTrigger, TooltipContent } from "@/components/ui/tooltip";
 
 const teamMembers = [
   {
@@ -13,6 +14,11 @@ const teamMembers = [
     reviews: 1250,
     specialties: ["Classic Cuts", "Hot Towel Shaves"],
     image: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=500&q=80&auto=format&fit=crop",
+    tooltips: [
+      { icon: Award, text: "15+ years experience" },
+      { icon: ThumbsUp, text: "98% satisfaction rate" },
+      { icon: Scissors, text: "Specializes in fades" },
+    ],
   },
   {
     name: "Diego Ramirez",
@@ -22,6 +28,11 @@ const teamMembers = [
     reviews: 980,
     specialties: ["Modern Styles", "Beard Grooming"],
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80&auto=format&fit=crop",
+    tooltips: [
+      { icon: Award, text: "8+ years experience" },
+      { icon: Clock, text: "Fast turnaround" },
+      { icon: ThumbsUp, text: "Beard expert" },
+    ],
   },
   {
     name: "James Chen",
@@ -31,6 +42,11 @@ const teamMembers = [
     reviews: 870,
     specialties: ["Hair Styling", "Color"],
     image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=500&q=80&auto=format&fit=crop",
+    tooltips: [
+      { icon: Award, text: "6+ years experience" },
+      { icon: Scissors, text: "Color specialist" },
+      { icon: ThumbsUp, text: "Trending styles" },
+    ],
   },
 ];
 
@@ -135,11 +151,35 @@ export default function Team() {
                   <p className="text-cream/60 text-sm leading-relaxed">
                     {member.bio}
                   </p>
+
+                  {/* Tooltip badges */}
+                  <div className="flex flex-wrap gap-2">
+                    {member.tooltips.map((tip) => (
+                      <Tooltip key={tip.text}>
+                        <TooltipTrigger
+                          render={
+                            <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gold/10 border border-gold/20 text-gold text-xs font-medium cursor-help transition-all duration-300 hover:bg-gold/20 hover:border-gold/40" />
+                          }
+                        >
+                          <tip.icon className="w-3 h-3" />
+                          {tip.text}
+                        </TooltipTrigger>
+                        <TooltipContent
+                          side="top"
+                          className="bg-dark-900 border border-gold/20 text-cream text-xs px-3 py-2 rounded-lg shadow-xl"
+                        >
+                          {tip.text}
+                        </TooltipContent>
+                      </Tooltip>
+                    ))}
+                  </div>
+
+                  {/* Specialty tags */}
                   <div className="flex flex-wrap gap-2">
                     {member.specialties.map((specialty) => (
                       <span
                         key={specialty}
-                        className="px-3 py-1 rounded-full bg-gold/10 border border-gold/20 text-gold text-xs font-medium group-hover:bg-gold/15 group-hover:border-gold/30 transition-all duration-300"
+                        className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-cream/50 text-xs"
                       >
                         {specialty}
                       </span>
