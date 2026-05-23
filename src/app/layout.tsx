@@ -54,6 +54,59 @@ export default function RootLayout({
       <head>
         <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)" />
         <meta name="theme-color" content="#F5F0E8" media="(prefers-color-scheme: light)" />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              "name": "BlackStag Barbershop",
+              "image": "https://website-barbershop-two.vercel.app/images/hairstyl-1.jpg",
+              "url": "https://website-barbershop-two.vercel.app",
+              "telephone": "+15551234567",
+              "description": "Premium barbershop providing exceptional grooming services with a classic touch. Where tradition meets modern style.",
+              "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "123 Barber Street",
+                "addressLocality": "New York",
+                "addressRegion": "NY",
+                "postalCode": "10001",
+                "addressCountry": "US"
+              },
+              "openingHoursSpecification": [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                  "opens": "09:00",
+                  "closes": "20:00"
+                },
+                {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": "Saturday",
+                  "opens": "09:00",
+                  "closes": "18:00"
+                },
+                {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": "Sunday",
+                  "opens": "10:00",
+                  "closes": "16:00"
+                }
+              ],
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": 4.9,
+                "reviewCount": 10000,
+                "bestRating": "5"
+              },
+              "priceRange": "$$",
+              "sameAs": [
+                "https://instagram.com/blackstagbarbershop",
+                "https://wa.me/15551234567"
+              ]
+            }),
+          }}
+        />
       </head>
       <body
         className={`${outfit.variable} ${playfair.variable} antialiased bg-dark-950 text-cream selection:bg-gold/30 selection:text-cream`}
