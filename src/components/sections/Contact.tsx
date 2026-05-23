@@ -85,19 +85,32 @@ export default function Contact() {
     if (!validateForm()) return;
     
     setIsSubmitting(true);
-    // Simulate API call
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    setIsSubmitting(false);
     
-    setSubmitted(true);
-    setFormData({
-      firstName: "",
-      lastName: "",
-      email: "",
-      phone: "",
-      message: "",
-    });
-    setTimeout(() => setSubmitted(false), 5000);
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+
+      setSubmitted(true);
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        message: "",
+      });
+      setTimeout(() => setSubmitted(false), 5000);
+    } catch (error) {
+      console.error("Contact form error:", error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (field: keyof FormData, value: string) => {
@@ -177,13 +190,20 @@ export default function Contact() {
             <motion.div variants={fadeUpItem} className="pt-8 border-t border-border">
               <h3 className="text-cream font-display text-lg font-semibold mb-4">Follow Us</h3>
               <div className="flex gap-3">
-                {[MessageCircle, Camera, Globe].map((Icon, i) => (
+                {[
+                  { Icon: MessageCircle, href: "https://wa.me/15551234567", label: "WhatsApp" },
+                  { Icon: Camera, href: "https://instagram.com/blackstagbarbershop", label: "Instagram" },
+                  { Icon: Globe, href: "https://blackstagbarbershop.com", label: "Website" },
+                ].map(({ Icon, href, label }) => (
                   <motion.a
-                    key={i}
-                    href="#"
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                     className="w-12 h-12 rounded-full bg-muted/50 hover:bg-gold/20 border border-border hover:border-gold/30 flex items-center justify-center text-cream/60 hover:text-gold transition-all duration-300 group"
+                    aria-label={label}
                   >
                     <Icon className="w-5 h-5 transition-transform group-hover:scale-110" />
                   </motion.a>

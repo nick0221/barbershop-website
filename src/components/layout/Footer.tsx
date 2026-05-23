@@ -57,11 +57,18 @@ export default function Footer() {
               Where tradition meets modern style.
             </p>
             <div className="flex gap-3">
-              {[MessageCircle, Camera, Globe].map((Icon, i) => (
+              {[
+                { Icon: MessageCircle, href: "https://wa.me/15551234567", label: "WhatsApp" },
+                { Icon: Camera, href: "https://instagram.com/blackstagbarbershop", label: "Instagram" },
+                { Icon: Globe, href: "https://blackstagbarbershop.com", label: "Website" },
+              ].map(({ Icon, href, label }) => (
                 <a
-                  key={i}
-                  href="#"
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 rounded-full bg-white/5 hover:bg-gold/20 border border-white/10 hover:border-gold/30 flex items-center justify-center text-cream/60 hover:text-gold transition-all duration-300 group"
+                  aria-label={label}
                 >
                   <Icon className="w-4 h-4 transition-transform group-hover:scale-110" />
                 </a>
