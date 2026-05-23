@@ -11,14 +11,14 @@ import {
 } from "@/components/ui/dialog";
 
 const galleryImages = [
-  { id: 1, image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=800&q=80&auto=format&fit=crop", label: "Classic Cuts", category: "Cuts", color: "from-amber-900/60" },
-  { id: 2, image: "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=800&q=80&auto=format&fit=crop", label: "Beard Styling", category: "Beards", color: "from-stone-900/60" },
-  { id: 3, image: "https://images.unsplash.com/photo-1548943487-a2e4e43b4853?w=800&q=80&auto=format&fit=crop", label: "Royal Package", category: "Styles", color: "from-yellow-900/60" },
-  { id: 4, image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=800&q=80&auto=format&fit=crop", label: "Modern Styles", category: "Styles", color: "from-zinc-900/60" },
-  { id: 5, image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=800&q=80&auto=format&fit=crop", label: "Hot Towel Shave", category: "Shaves", color: "from-slate-900/60" },
-  { id: 6, image: "https://images.unsplash.com/photo-1596728325488-58c87691e9af?w=800&q=80&auto=format&fit=crop", label: "Transformations", category: "Cuts", color: "from-amber-900/60" },
-  { id: 7, image: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=800&q=80&auto=format&fit=crop", label: "Premium Finishes", category: "Styles", color: "from-stone-900/60" },
-  { id: 8, image: "https://images.unsplash.com/photo-1621607512214-68297480165e?w=800&q=80&auto=format&fit=crop", label: "Detail Work", category: "Beards", color: "from-yellow-900/60" },
+  { id: 1, image: "/images/hairstyl-1.jpg", label: "Classic Cuts", category: "Cuts", color: "from-amber-900/60" },
+  { id: 2, image: "/images/barber-1.jpg", label: "Beard Styling", category: "Beards", color: "from-stone-900/60" },
+  { id: 3, image: "/images/package.jpg", label: "Royal Package", category: "Styles", color: "from-yellow-900/60" },
+  { id: 4, image: "/images/hairstyle-2.jpg", label: "Modern Styles", category: "Styles", color: "from-zinc-900/60" },
+  { id: 5, image: "/images/shaving-style.jpg", label: "Hot Towel Shave", category: "Shaves", color: "from-slate-900/60" },
+  { id: 6, image: "/images/hairstyle-3.jpg", label: "Transformations", category: "Cuts", color: "from-amber-900/60" },
+  { id: 7, image: "/images/barber-2.jpg", label: "Premium Finishes", category: "Styles", color: "from-stone-900/60" },
+  { id: 8, image: "/images/barber-3.jpg", label: "Detail Work", category: "Beards", color: "from-yellow-900/60" },
 ];
 
 const filters = ["All", "Cuts", "Beards", "Styles", "Shaves"];
@@ -175,7 +175,7 @@ export default function Gallery() {
           <div className="relative">
             {selected && (
               <img
-                src={selected.image.replace("w=800", "w=1400")}
+                src={selected.image}
                 alt={selected.label}
                 loading="lazy"
                 data-loaded="false"

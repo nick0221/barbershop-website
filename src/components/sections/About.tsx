@@ -56,7 +56,7 @@ export default function About() {
             {/* Main Image */}
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
               <img
-                src="https://images.unsplash.com/photo-1596728325488-58c87691e9af?w=900&q=80&auto=format&fit=crop"
+                src="/images/hairstyl-1.jpg"
                 alt="BlackStag Barbershop interior with classic barber chairs"
                 loading="lazy"
                 data-loaded="false"

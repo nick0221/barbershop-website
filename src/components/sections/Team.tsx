@@ -13,7 +13,7 @@ const teamMembers = [
     rating: 4.9,
     reviews: 1250,
     specialties: ["Classic Cuts", "Hot Towel Shaves"],
-    image: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=500&q=80&auto=format&fit=crop",
+    image: "/images/barber-1.jpg",
     tooltips: [
       { icon: Award, text: "15+ years experience" },
       { icon: ThumbsUp, text: "98% satisfaction rate" },
@@ -27,7 +27,7 @@ const teamMembers = [
     rating: 4.8,
     reviews: 980,
     specialties: ["Modern Styles", "Beard Grooming"],
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80&auto=format&fit=crop",
+    image: "/images/barber-2.jpg",
     tooltips: [
       { icon: Award, text: "8+ years experience" },
       { icon: Clock, text: "Fast turnaround" },
@@ -41,7 +41,7 @@ const teamMembers = [
     rating: 4.9,
     reviews: 870,
     specialties: ["Hair Styling", "Color"],
-    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=500&q=80&auto=format&fit=crop",
+    image: "/images/barber-3.jpg",
     tooltips: [
       { icon: Award, text: "6+ years experience" },
       { icon: Scissors, text: "Color specialist" },
@@ -122,6 +122,8 @@ export default function Team() {
                     src={member.image}
                     alt={member.name}
                     loading="lazy"
+                    data-loaded="false"
+                    onLoad={(e) => (e.currentTarget.dataset.loaded = "true")}
                     className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                   />
 
