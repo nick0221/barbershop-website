@@ -136,8 +136,8 @@ export default function Team() {
                   {/* Rating badge */}
                   <div className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 group-hover:border-gold/30 transition-colors duration-300">
                     <Star className="w-3.5 h-3.5 text-gold fill-gold" />
-                    <span className="text-xs font-medium text-cream">{member.rating}</span>
-                    <span className="text-cream/40 text-xs">({member.reviews})</span>
+                    <span className="text-xs font-medium text-white">{member.rating}</span>
+                    <span className="text-white/50 text-xs">({member.reviews})</span>
                   </div>
 
                   {/* Name on image */}
