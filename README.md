@@ -7,8 +7,9 @@
     <strong>Premium Grooming Experience — Where Style Meets Precision</strong>
   </p>
 
-  [🌐 Live Demo](https://website-barbershop-two.vercel.app) · [Features](#features) · [Tech Stack](#tech-stack) · [Getting Started](#getting-started) · [Project Structure](#project-structure)
-  <br/>
+[🌐 Live Demo](https://website-barbershop-two.vercel.app) · [Features](#features) · [Tech Stack](#tech-stack) · [Getting Started](#getting-started) · [Project Structure](#project-structure)
+<br/>
+
 </div>
 
 ---
@@ -20,6 +21,7 @@ A modern, responsive barbershop website built with **Next.js 16**, **Tailwind CS
 ## ✨ Features
 
 ### 🎨 Design & UI
+
 - **Dark & Light Mode** — Smooth theme switching with warm cream light mode and premium dark mode
 - **Custom Gold Accents** — Consistent brand identity with gold (#C8A87C) gradients and accents
 - **Responsive Layout** — Fully adaptive from 320px mobile to 4K desktop
@@ -28,19 +30,21 @@ A modern, responsive barbershop website built with **Next.js 16**, **Tailwind CS
 - **Noise Texture Overlay** — Subtle grain texture for depth and richness
 
 ### 🧭 Sections
-| Section | Description |
-|---------|-------------|
-| **Hero** | Animated headline, CTA buttons, floating icons, rotating rings, live stats counters |
-| **About** | Brand story, stats grid, floating award card, CTA |
-| **Services** | Category filter tabs, service cards with prices/duration, animated layout transitions |
-| **Gallery** | Filterable masonry grid, lightbox dialog with keyboard navigation |
-| **Team** | Barber profiles with ratings, specialties, and booking CTAs |
-| **Testimonials** | Auto-playing carousel with star ratings |
-| **FAQ** | Accordion-style Q&A with smooth expand/collapse |
-| **Booking** | 5-step booking wizard (Service → Barber → Date/Time → Info → Confirm) |
-| **Contact** | Contact form with validation, social links, address, business hours and info |
+
+| Section          | Description                                                                           |
+| ---------------- | ------------------------------------------------------------------------------------- |
+| **Hero**         | Animated headline, CTA buttons, floating icons, rotating rings, live stats counters   |
+| **About**        | Brand story, stats grid, floating award card, CTA                                     |
+| **Services**     | Category filter tabs, service cards with prices/duration, animated layout transitions |
+| **Gallery**      | Filterable masonry grid, lightbox dialog with keyboard navigation                     |
+| **Team**         | Barber profiles with ratings, specialties, and booking CTAs                           |
+| **Testimonials** | Auto-playing carousel with star ratings                                               |
+| **FAQ**          | Accordion-style Q&A with smooth expand/collapse                                       |
+| **Booking**      | 5-step booking wizard (Service → Barber → Date/Time → Info → Confirm)                 |
+| **Contact**      | Contact form with validation, social links, address, business hours and info          |
 
 ### ♿ Accessibility
+
 - ARIA roles (`tablist`, `tab`, `tabpanel`) on filter controls
 - Keyboard navigation (Arrow keys for tabs, Escape for modals)
 - **`prefers-reduced-motion`** support — disables animations for vestibular disorders
@@ -48,6 +52,7 @@ A modern, responsive barbershop website built with **Next.js 16**, **Tailwind CS
 - Semantic HTML with proper heading hierarchy
 
 ### ⚡ Performance & SEO
+
 - **Optimized for performance** — Lazy loading, optimized images, minimal JavaScript footprint
 - **Next.js App Router** — Static generation, route-level code splitting
 - **JSON-LD Structured Data** — schema.org LocalBusiness for rich search results
@@ -59,24 +64,25 @@ A modern, responsive barbershop website built with **Next.js 16**, **Tailwind CS
 
 ## 🛠️ Tech Stack
 
-| Technology | Purpose |
-|------------|---------|
-| **Next.js 16** | React framework with App Router |
-| **TypeScript** | Type-safe development |
-| **Tailwind CSS 3** | Utility-first styling |
-| **Framer Motion** | Declarative animations & gestures |
-| **next-themes** | Dark/light mode with `class` strategy |
-| **shadcn/ui** | Accessible component primitives |
-| **Lucide React** | Icon library |
-| **Embla Carousel** | Lightweight carousel for testimonials |
-| **Geist Font** | Primary sans-serif (body text) |
-| **Outfit Font** | Secondary sans-serif (body utility) |
-| **Playfair Display** | Serif display (headings) |
-| **Open Sans** | Variable-weight fallback font |
+| Technology           | Purpose                               |
+| -------------------- | ------------------------------------- |
+| **Next.js 16**       | React framework with App Router       |
+| **TypeScript**       | Type-safe development                 |
+| **Tailwind CSS 3**   | Utility-first styling                 |
+| **Framer Motion**    | Declarative animations & gestures     |
+| **next-themes**      | Dark/light mode with `class` strategy |
+| **shadcn/ui**        | Accessible component primitives       |
+| **Lucide React**     | Icon library                          |
+| **Embla Carousel**   | Lightweight carousel for testimonials |
+| **Geist Font**       | Primary sans-serif (body text)        |
+| **Outfit Font**      | Secondary sans-serif (body utility)   |
+| **Playfair Display** | Serif display (headings)              |
+| **Open Sans**        | Variable-weight fallback font         |
 
-## 🚀 Getting Started
+## 🚀Getting Started
 
 ### Prerequisites
+
 - **Node.js** 22.x or later
 - **npm**, **pnpm**, or **bun**
 
@@ -141,17 +147,20 @@ barbershop-website/
 ## 🔧 Configuration
 
 ### Theme
+
 The site uses **next-themes** with `class` strategy. Default is dark mode. Toggle via the sun/moon icon in the navbar.
 
 ### Brand Colors
-| Token | Hex | Usage |
-|-------|-----|-------|
-| `gold` | `#C8A87C` | Primary accent, CTAs, highlights |
-| `bronze` | `#8B6914` | Secondary accent, gradients |
-| `cream` | `--cream` (dynamic) | Primary text (dark) / background (light) |
-| `dark-*` | `--dark-*` (dynamic) | Background shades |
+
+| Token    | Hex                  | Usage                                    |
+| -------- | -------------------- | ---------------------------------------- |
+| `gold`   | `#C8A87C`            | Primary accent, CTAs, highlights         |
+| `bronze` | `#8B6914`            | Secondary accent, gradients              |
+| `cream`  | `--cream` (dynamic)  | Primary text (dark) / background (light) |
+| `dark-*` | `--dark-*` (dynamic) | Background shades                        |
 
 ### Environment Variables
+
 No environment variables are required to run locally.
 
 ## 📄 License
