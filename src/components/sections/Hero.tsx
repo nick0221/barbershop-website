@@ -122,7 +122,7 @@ export default function Hero() {
 
         {/* Main Heading */}
         <motion.div variants={fadeUpItem}>
-          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight text-cream mb-6">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-bold tracking-tight text-cream mb-6">
             <span className="block">Where Style</span>
             <span className="block mt-2">
               Meets{" "}

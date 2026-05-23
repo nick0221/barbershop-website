@@ -135,7 +135,7 @@ export default function Services() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="flex justify-center mb-12"
           >
-            <TabsList className="inline-flex bg-dark-900/80 border border-white/5 rounded-full p-1.5 gap-1">
+            <TabsList className="inline-flex bg-dark-900/80 border border-white/5 rounded-full p-1.5 gap-1 overflow-x-auto w-full sm:w-auto scrollbar-none [-webkit-scrollbar]:hidden snap-x snap-mandatory flex-nowrap">
               {categories.map((cat) => (
                 <TabsTrigger
                   key={cat.value}

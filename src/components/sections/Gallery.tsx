@@ -132,10 +132,10 @@ export default function Gallery() {
               {/* Decorative frame line on hover */}
               <div className="absolute inset-2 border border-white/0 group-hover:border-gold/20 rounded-lg transition-all duration-500 z-20" />
 
-              {/* Expand icon */}
-              <div className="absolute top-3 right-3 z-20 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div className="w-8 h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center">
-                  <Expand className="w-4 h-4 text-cream" />
+              {/* Expand icon - visible on mobile, hover on desktop */}
+              <div className="absolute top-3 right-3 z-20 opacity-100 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div className="w-9 h-9 sm:w-8 sm:h-8 rounded-full bg-black/60 backdrop-blur-sm flex items-center justify-center">
+                  <Expand className="w-5 h-5 sm:w-4 sm:h-4 text-cream" />
                 </div>
               </div>
 

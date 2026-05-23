@@ -171,26 +171,26 @@ export default function Testimonials() {
           </div>
 
           {/* Navigation */}
-          <div className="flex items-center justify-center gap-4 mt-10">
+          <div className="flex items-center justify-center gap-2 sm:gap-4 mt-10">
             <button
               onClick={() => api?.scrollPrev()}
-              className="w-10 h-10 rounded-full bg-white/5 hover:bg-gold/20 border border-white/10 hover:border-gold/30 flex items-center justify-center text-cream/60 hover:text-gold transition-all duration-300 group"
+              className="w-11 h-11 sm:w-10 sm:h-10 rounded-full bg-white/5 hover:bg-gold/20 border border-white/10 hover:border-gold/30 flex items-center justify-center text-cream/60 hover:text-gold transition-all duration-300 group active:scale-95"
               aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-5 h-5 transition-transform group-hover:-translate-x-0.5" />
             </button>
 
             {/* Dots */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 flex-1 justify-center px-2 min-w-0">
               {Array.from({ length: count }).map((_, i) => (
                 <button
                   key={i}
                   onClick={() => scrollTo(i)}
                   className={cn(
-                    "rounded-full transition-all duration-500",
+                    "rounded-full transition-all duration-500 min-w-[8px]",
                     i === current
-                      ? "bg-gold w-8 h-2"
-                      : "bg-white/20 hover:bg-white/40 w-2 h-2"
+                      ? "bg-gold w-6 sm:w-8 h-2.5 sm:h-2"
+                      : "bg-white/20 hover:bg-white/40 w-2.5 h-2.5 sm:w-2 sm:h-2"
                   )}
                   aria-label={`Go to testimonial ${i + 1}`}
                 />
@@ -199,7 +199,7 @@ export default function Testimonials() {
 
             <button
               onClick={() => api?.scrollNext()}
-              className="w-10 h-10 rounded-full bg-white/5 hover:bg-gold/20 border border-white/10 hover:border-gold/30 flex items-center justify-center text-cream/60 hover:text-gold transition-all duration-300 group"
+              className="w-11 h-11 sm:w-10 sm:h-10 rounded-full bg-white/5 hover:bg-gold/20 border border-white/10 hover:border-gold/30 flex items-center justify-center text-cream/60 hover:text-gold transition-all duration-300 group active:scale-95"
               aria-label="Next testimonial"
             >
               <ChevronRight className="w-5 h-5 transition-transform group-hover:translate-x-0.5" />

@@ -206,7 +206,7 @@ export default function Contact() {
               
               <form
                 onSubmit={handleSubmit}
-                className="space-y-6 bg-dark-900/60 backdrop-blur-sm border border-white/5 rounded-2xl p-8 relative"
+                className="space-y-6 bg-dark-900/60 backdrop-blur-sm border border-white/5 rounded-2xl p-4 sm:p-6 md:p-8 relative"
               >
                 {/* Success message */}
                 {submitted && (
