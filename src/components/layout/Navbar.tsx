@@ -27,6 +27,16 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("#hero");
+  const [bannerVisible, setBannerVisible] = useState(false);
+
+  useEffect(() => {
+    const checkBanner = () => {
+      setBannerVisible(!localStorage.getItem("demo-banner-dismissed"));
+    };
+    checkBanner();
+    window.addEventListener("banner-state-change", checkBanner);
+    return () => window.removeEventListener("banner-state-change", checkBanner);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -61,7 +71,8 @@ export default function Navbar() {
       animate={{ y: 0 }}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
       className={cn(
-        "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
+        "fixed left-0 right-0 z-50 transition-all duration-500",
+        bannerVisible ? "top-9" : "top-0",
         scrolled
           ? "bg-dark-950/90 backdrop-blur-xl shadow-[0_4px_30px_rgba(0,0,0,0.3)] border-b border-white/10"
           : "bg-dark-950/60 backdrop-blur-sm border-b border-white/[0.03]"

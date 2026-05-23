@@ -1,5 +1,6 @@
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
+import DemoBanner from "@/components/DemoBanner";
 import Hero from "@/components/sections/Hero";
 import About from "@/components/sections/About";
 import Services from "@/components/sections/Services";
@@ -13,6 +14,7 @@ import Booking from "@/components/sections/Booking";
 export default function Home() {
   return (
     <main className="min-h-screen">
+      <DemoBanner />
       <Navbar />
       <Hero />
       <About />
