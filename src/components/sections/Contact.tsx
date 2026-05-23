@@ -231,7 +231,7 @@ export default function Contact() {
                       value={formData.firstName}
                       onChange={(e) => handleChange("firstName", e.target.value)}
                       className={cn(
-                        "text-cream dark:bg-white/5 dark:border-white/10 dark:placeholder:text-cream/30 focus:border-gold/50 focus:ring-gold/20 transition-all duration-300",
+                        "text-cream bg-dark-900 border-dark-800 placeholder:text-cream/40 dark:bg-white/5 dark:border-white/10 dark:placeholder:text-cream/30 focus:border-gold/50 focus:ring-gold/20 transition-all duration-300",
                         errors.firstName && "dark:border-red-500/50 border-red-500/50 focus:border-red-500 focus:ring-red-500/20"
                       )}
                     />
@@ -252,7 +252,7 @@ export default function Contact() {
                       value={formData.lastName}
                       onChange={(e) => handleChange("lastName", e.target.value)}
                       className={cn(
-                        "text-cream dark:bg-white/5 dark:border-white/10 dark:placeholder:text-cream/30 focus:border-gold/50 focus:ring-gold/20 transition-all duration-300",
+                        "text-cream bg-dark-900 border-dark-800 placeholder:text-cream/40 dark:bg-white/5 dark:border-white/10 dark:placeholder:text-cream/30 focus:border-gold/50 focus:ring-gold/20 transition-all duration-300",
                         errors.lastName && "dark:border-red-500/50 border-red-500/50 focus:border-red-500 focus:ring-red-500/20"
                       )}
                     />
@@ -273,13 +273,12 @@ export default function Contact() {
                     type="email"
                     placeholder="john@example.com"
                     value={formData.email}
-                    onChange={(e) => handleChange("email", e.target.value)}
-                    className={cn(
-                      "text-cream dark:bg-white/5 dark:border-white/10 dark:placeholder:text-cream/30 focus:border-gold/50 focus:ring-gold/20 transition-all duration-300",
-                      errors.email && "dark:border-red-500/50 border-red-500/50 focus:border-red-500 focus:ring-red-500/20"
-                    )}
-                  />
-                  {errors.email && (
+                    onChange={(e) => handleChange("email", e.target.value)}                      className={cn(
+                        "text-cream bg-dark-900 border-dark-800 placeholder:text-cream/40 dark:bg-white/5 dark:border-white/10 dark:placeholder:text-cream/30 focus:border-gold/50 focus:ring-gold/20 transition-all duration-300",
+                        errors.email && "dark:border-red-500/50 border-red-500/50 focus:border-red-500 focus:ring-red-500/20"
+                      )}
+                    />
+                    {errors.email && (
                     <motion.p
                       initial={{ opacity: 0, y: -5 }}
                       animate={{ opacity: 1, y: 0 }}
@@ -296,7 +295,7 @@ export default function Contact() {
                     placeholder="(555) 000-0000"
                     value={formData.phone}
                     onChange={(e) => handleChange("phone", e.target.value)}
-                    className="text-cream dark:bg-white/5 dark:border-white/10 dark:placeholder:text-cream/30 focus:border-gold/50 focus:ring-gold/20 transition-all duration-300"
+                    className="text-cream bg-dark-900 border-dark-800 placeholder:text-cream/40 dark:bg-white/5 dark:border-white/10 dark:placeholder:text-cream/30 focus:border-gold/50 focus:ring-gold/20 transition-all duration-300"
                   />
                 </div>
                 <div className="space-y-2">
@@ -304,13 +303,12 @@ export default function Contact() {
                   <Textarea
                     placeholder="Tell us what you're looking for..."
                     value={formData.message}
-                    onChange={(e) => handleChange("message", e.target.value)}
-                    className={cn(
-                      "text-cream dark:bg-white/5 dark:border-white/10 dark:placeholder:text-cream/30 focus:border-gold/50 focus:ring-gold/20 min-h-[120px] transition-all duration-300",
-                      errors.message && "dark:border-red-500/50 border-red-500/50 focus:border-red-500 focus:ring-red-500/20"
-                    )}
-                  />
-                  {errors.message && (
+                    onChange={(e) => handleChange("message", e.target.value)}                      className={cn(
+                        "text-cream bg-dark-900 border-dark-800 placeholder:text-cream/40 dark:bg-white/5 dark:border-white/10 dark:placeholder:text-cream/30 focus:border-gold/50 focus:ring-gold/20 min-h-[120px] transition-all duration-300",
+                        errors.message && "dark:border-red-500/50 border-red-500/50 focus:border-red-500 focus:ring-red-500/20"
+                      )}
+                    />
+                    {errors.message && (
                     <motion.p
                       initial={{ opacity: 0, y: -5 }}
                       animate={{ opacity: 1, y: 0 }}
