@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Scissors, Award, Users, Star, Quote } from "lucide-react";
+import { Scissors, Award, Users, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 const stats = [
@@ -52,29 +52,21 @@ export default function About() {
             <div className="absolute -top-4 -left-4 w-12 h-12 border-t-2 border-l-2 border-gold/30 rounded-tl-lg z-10" />
             <div className="absolute -bottom-4 -right-4 w-12 h-12 border-b-2 border-r-2 border-gold/30 rounded-br-lg z-10" />
 
-            {/* Main Image Placeholder */}
+            {/* Main Image */}
             <div className="relative aspect-[4/5] rounded-2xl overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-gold/20 to-dark-900">
-                {/* Ken burns effect on pattern */}
-                <motion.div
-                  animate={{ scale: [1, 1.05], x: [0, -5] }}
-                  transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", repeatType: "reverse" }}
-                  className="absolute inset-0 opacity-30"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23C8A87C' fill-opacity='0.3'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-                  }}
-                />
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <Scissors className="w-16 h-16 text-gold/30 mx-auto mb-4" />
-                    <p className="text-cream/30 text-sm">Barbershop Interior</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+              <img
+                src="https://images.unsplash.com/photo-1503951590938-420360481d83?w=900&q=80&auto=format&fit=crop"
+                alt="BlackStag Barbershop interior with classic barber chairs"
+                loading="lazy"
+                className="absolute inset-0 w-full h-full object-cover"
+              />
 
-            {/* Shimmer overlay */}
-            <div className="shimmer-overlay rounded-2xl" />
+              {/* Gradient overlay for atmosphere */}
+              <div className="absolute inset-0 bg-gradient-to-t from-dark-950/60 via-dark-950/10 to-transparent" />
+
+              {/* Subtle shimmer overlay */}
+              <div className="shimmer-overlay rounded-2xl" />
+            </div>
 
             {/* Floating award card */}
             <motion.div

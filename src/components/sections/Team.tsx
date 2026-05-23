@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Scissors, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 
 const teamMembers = [
@@ -12,6 +12,7 @@ const teamMembers = [
     rating: 4.9,
     reviews: 1250,
     specialties: ["Classic Cuts", "Hot Towel Shaves"],
+    image: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?w=500&q=80&auto=format&fit=crop",
   },
   {
     name: "Diego Ramirez",
@@ -20,6 +21,7 @@ const teamMembers = [
     rating: 4.8,
     reviews: 980,
     specialties: ["Modern Styles", "Beard Grooming"],
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&q=80&auto=format&fit=crop",
   },
   {
     name: "James Chen",
@@ -28,6 +30,7 @@ const teamMembers = [
     rating: 4.9,
     reviews: 870,
     specialties: ["Hair Styling", "Color"],
+    image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=500&q=80&auto=format&fit=crop",
   },
 ];
 
@@ -91,25 +94,26 @@ export default function Team() {
           viewport={{ once: true, margin: "-50px" }}
           className="grid md:grid-cols-3 gap-8"
         >
-          {teamMembers.map((member, i) => (
+          {teamMembers.map((member) => (
             <motion.div key={member.name} variants={itemVariants}>
               <Card className="group bg-dark-900/50 border-white/5 hover:border-gold/30 transition-all duration-500 overflow-hidden h-full">
                 {/* Top decorative line */}
                 <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-gold/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
 
-                {/* Image Placeholder */}
+                {/* Image */}
                 <div className="relative aspect-[3/4] overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-gold/10 to-dark-900">
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <Scissors className="w-12 h-12 text-gold/20" />
-                    </div>
-                  </div>
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
 
-                  {/* Shimmer effect */}
-                  <div className="shimmer-overlay" />
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-dark-950/20 to-transparent" />
 
                   {/* Hover overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark-950 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark-950/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
 
                   {/* Rating badge */}
                   <div className="absolute top-4 left-4 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-sm border border-white/10 group-hover:border-gold/30 transition-colors duration-300">
