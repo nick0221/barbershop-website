@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Scissors, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import ThemeToggle from "@/components/ThemeToggle";
 import {
   Sheet,
   SheetContent,
@@ -113,16 +114,19 @@ export default function Navbar() {
                 )}
               </motion.button>
             ))}
-            <div className="ml-4 pl-4 border-l border-white/10">
-              <Button
-                variant="gold"
-                size="sm"
-                onClick={() => scrollToSection("#booking")}
-                className="relative overflow-hidden group shadow-lg shadow-gold/20"
-              >
-                <span className="relative z-10">Book Now</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-gold/0 via-white/20 to-gold/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
-              </Button>
+            <div className="flex items-center gap-2">
+              <ThemeToggle />
+              <div className="ml-2 pl-4 border-l border-white/10">
+                <Button
+                  variant="gold"
+                  size="sm"
+                  onClick={() => scrollToSection("#booking")}
+                  className="relative overflow-hidden group shadow-lg shadow-gold/20"
+                >
+                  <span className="relative z-10">Book Now</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-gold/0 via-white/20 to-gold/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700" />
+                </Button>
+              </div>
             </div>
           </div>
 
@@ -175,8 +179,12 @@ export default function Navbar() {
                 ))}
               </div>
 
-              {/* Booking button at bottom */}
-              <div className="px-4 pb-6 pt-4 border-t border-white/5">
+              {/* Theme toggle + Booking */}
+              <div className="px-4 pb-6 pt-4 border-t border-white/5 space-y-3">
+                <div className="flex items-center justify-between px-2">
+                  <span className="text-xs font-medium text-cream/50">Appearance</span>
+                  <ThemeToggle />
+                </div>
                 <Button
                   variant="gold"
                   className="w-full"

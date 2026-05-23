@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Outfit, Playfair_Display, Geist } from "next/font/google";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { ThemeProvider } from "next-themes";
 import ScrollProgress from "@/components/ScrollProgress";
 import BackToTop from "@/components/BackToTop";
 import CursorGlow from "@/components/CursorGlow";
@@ -49,9 +50,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={cn("scroll-smooth", "font-sans", geist.variable)}>
+    <html lang="en" className={cn("scroll-smooth", "font-sans", geist.variable)} suppressHydrationWarning>
       <head>
-        <meta name="theme-color" content="#0d0d0d" />
+        <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)" />
+        <meta name="theme-color" content="#F5F0E8" media="(prefers-color-scheme: light)" />
       </head>
       <body
         className={`${outfit.variable} ${playfair.variable} antialiased bg-dark-950 text-cream selection:bg-gold/30 selection:text-cream`}
@@ -66,9 +68,11 @@ export default function RootLayout({
         {/* Noise texture overlay */}
         <div className="noise-overlay" aria-hidden="true" />
 
-        <TooltipProvider delay={300}>
-          {children}
-        </TooltipProvider>
+        <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false}>
+          <TooltipProvider delay={300}>
+            {children}
+          </TooltipProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -1,6 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: "class",
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -23,20 +24,20 @@ const config: Config = {
           950: "#3a1d0d",
         },
         dark: {
-          50: "#f6f6f6",
-          100: "#e7e7e7",
-          200: "#d1d1d1",
-          300: "#b0b0b0",
-          400: "#888888",
-          500: "#6d6d6d",
-          600: "#5d5d5d",
-          700: "#4f4f4f",
-          800: "#454545",
-          900: "#1a1a1a",
-          950: "#0d0d0d",
-          975: "#080808",
+          50: "var(--dark-50)",
+          100: "var(--dark-100)",
+          200: "var(--dark-200)",
+          300: "var(--dark-300)",
+          400: "var(--dark-400)",
+          500: "var(--dark-500)",
+          600: "var(--dark-600)",
+          700: "var(--dark-700)",
+          800: "var(--dark-800)",
+          900: "var(--dark-900)",
+          950: "var(--dark-950)",
+          975: "var(--dark-975)",
         },
-        cream: "#FAF7F2",
+        cream: "var(--cream)",
         gold: "#C8A87C",
         bronze: "#8B6914",
         background: "hsl(var(--background))",
@@ -165,7 +166,7 @@ const config: Config = {
       backgroundImage: {
         "barber-pattern": "url('/images/barber-pattern.png')",
         "hero-gradient":
-          "linear-gradient(135deg, #080808 0%, #1a1a1a 40%, #2a1a0a 100%)",
+          "var(--hero-gradient)",
         "gold-gradient":
           "linear-gradient(135deg, #C8A87C 0%, #E2A44E 50%, #C8A87C 100%)",
         "dark-gradient": "linear-gradient(180deg, #080808 0%, #0d0d0d 100%)",
