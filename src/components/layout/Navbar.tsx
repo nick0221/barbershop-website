@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { Scissors, Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -26,6 +26,8 @@ const navLinks = [
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const [activeSection, setActiveSection] = useState("#hero");
   const [bannerVisible, setBannerVisible] = useState(false);
 
@@ -57,8 +59,26 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Cleanup close timer on unmount
+  useEffect(() => () => clearTimeout(closeTimerRef.current), []);
+
+  const handleOpenChange = (open: boolean) => {
+    clearTimeout(closeTimerRef.current);
+    if (!open) {
+      // Start exit stagger animation before closing the sheet
+      setClosing(true);
+      closeTimerRef.current = setTimeout(() => {
+        setMobileOpen(false);
+        setClosing(false);
+      }, 350);
+    } else {
+      setMobileOpen(true);
+      setClosing(false);
+    }
+  };
+
   const scrollToSection = (href: string) => {
-    setMobileOpen(false);
+    handleOpenChange(false);
     const el = document.querySelector(href);
     if (el) {
       const navbarHeight = 80; // h-20
@@ -147,7 +167,7 @@ export default function Navbar() {
           </div>
 
           {/* Mobile Menu - Sheet */}
-          <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+          <Sheet open={mobileOpen} onOpenChange={handleOpenChange}>
             <SheetTrigger
               render={
                 <button
@@ -170,18 +190,49 @@ export default function Navbar() {
               <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
 
               {/* Logo inside sheet */}
-              <div className="flex items-center gap-3 px-4 pt-6 pb-6 border-b">
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={closing ? { opacity: 0, y: -10 } : { opacity: 1, y: 0 }}
+                transition={{ duration: 0.2, ease: [0.16, 1, 0.3, 1] }}
+                className="flex items-center gap-3 px-4 pt-6 pb-6 border-b"
+              >
                 <Scissors className="w-5 h-5 text-gold" />
                 <span className="text-lg font-display font-bold tracking-wide">
                   <span className="text-cream">BLACK<span className="text-gold">STAG</span></span>
                 </span>
-              </div>
+              </motion.div>
 
               {/* Navigation links */}
-              <div className="flex-1 px-2 py-4 space-y-1">
+              <motion.div
+                initial="hidden"
+                animate={closing ? "exit" : "visible"}
+                variants={{
+                  visible: {
+                    transition: { staggerChildren: 0.06, delayChildren: 0.15 },
+                  },
+                  exit: {
+                    transition: { staggerChildren: 0.03, staggerDirection: -1 },
+                  },
+                  hidden: {},
+                }}
+                className="flex-1 px-2 py-4 space-y-1"
+              >
                 {navLinks.map((link) => (
-                  <button
+                  <motion.button
                     key={link.href}
+                    variants={{
+                      visible: {
+                        opacity: 1,
+                        x: 0,
+                        transition: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
+                      },
+                      exit: {
+                        opacity: 0,
+                        x: 20,
+                        transition: { duration: 0.2 },
+                      },
+                      hidden: { opacity: 0, x: 20 },
+                    }}
                     onClick={() => scrollToSection(link.href)}
                     className={cn(
                       "block w-full text-left px-4 py-3 rounded-lg text-sm font-medium transition-all duration-200",
@@ -191,12 +242,17 @@ export default function Navbar() {
                     )}
                   >
                     {link.label}
-                  </button>
+                  </motion.button>
                 ))}
-              </div>
+              </motion.div>
 
               {/* Theme toggle + Booking */}
-              <div className="px-4 pb-6 pt-4 border-t space-y-3">
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={closing ? { opacity: 0 } : { opacity: 1 }}
+                transition={{ duration: 0.2, delay: closing ? 0 : 0.35 }}
+                className="px-4 pb-6 pt-4 border-t space-y-3"
+              >
                 <div className="flex items-center justify-between px-2">
                   <span className="text-xs font-medium text-cream/50">Appearance</span>
                   <ThemeToggle />
@@ -208,7 +264,7 @@ export default function Navbar() {
                 >
                   Book Now
                 </Button>
-              </div>
+              </motion.div>
             </SheetContent>
           </Sheet>
         </div>
