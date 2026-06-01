@@ -104,7 +104,7 @@ export default function Services() {
       <div className="section-divider" />
       
       {/* Background accent */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[800px] bg-gold/5 rounded-full blur-[120px]" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[300px] h-[300px] md:w-[600px] md:h-[600px] lg:w-[800px] lg:h-[800px] bg-gold/5 rounded-full blur-[120px]" />
       <div className="absolute bottom-0 right-0 w-64 h-64 bg-gold/3 rounded-full blur-[100px]" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
